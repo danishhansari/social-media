@@ -7,8 +7,12 @@ import middleware from "./middleware/middleware.js";
 // Configuration
 dotenv.config();
 
-export const app = express();
+const app = express();
+
+// All middlewares
 app.use(middleware);
+
+// Routes
 app.use("/auth", authRouter);
 
 const PORT = process.env.PORT || 8000;
