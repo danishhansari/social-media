@@ -5,7 +5,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import multer from "multer";
 const middleware = Router();
-import { fileStorage } from "./fileStorage.js";
+import { fileStorage } from "./fileStorage.middleware.js";
 import express from "express";
 import { fileURLToPath } from "url";
 import path from "path";
