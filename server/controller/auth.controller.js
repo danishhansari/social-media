@@ -42,7 +42,7 @@ const registerUser = async (req, res) => {
       .status(200)
       .cookie("token", token, options)
       .json({ savedUser, token, options });
-  } catch (error) {
+    } catch (error) {
     res.status(500).json({ err: error.message });
   }
 };
