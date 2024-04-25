@@ -73,4 +73,4 @@ const likePost = async (req, res) => {
   }
 };
 
-export { createPost, getFeedPost, getUserPosts };
+export { createPost, getFeedPost, getUserPosts, likePost };

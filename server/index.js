@@ -5,6 +5,9 @@ import authRouter from "./route/auth.route.js";
 import userRouter from "./route/user.route.js";
 import postRouter from "./route/post.route.js";
 import middleware from "./middleware/middleware.js";
+import User from "./models/user.model.js";
+import Post from "./models/post.model.js";
+import { users, posts } from "./data/index.js";
 
 // Configuration
 dotenv.config();
@@ -26,6 +29,10 @@ connectDB()
   .then(() => {
     app.listen(PORT, () => {
       console.log("App is running fine", PORT);
+
+      // Mock data for checking
+      // User.insertMany(users);
+      // Post.insertMany(posts);
     });
   })
   .catch((err) => {
