@@ -31,18 +31,8 @@ const registerUser = async (req, res) => {
       impressions: Math.floor(Math.random() * 2000),
     });
     const savedUser = await newUser.save();
-    const token = jwt.sign({ id: savedUser.id }, process.env.JWT_SECRET);
-    savedUser.password = undefined;
-    const options = {
-      httpOnly: true,
-      //   secure: true,
-      expires: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000),
-    };
-    return res
-      .status(200)
-      .cookie("token", token, options)
-      .json({ savedUser, token, options });
-    } catch (error) {
+    return res.status(201).json(savedUser);
+  } catch (error) {
     res.status(500).json({ err: error.message });
   }
 };
