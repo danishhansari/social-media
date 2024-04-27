@@ -25,6 +25,10 @@ app.use("/post", postRouter);
 const PORT = process.env.PORT || 8000;
 
 // Db connection then listen to port
+
+app.get("/", (req, res) => {
+  res.send("Hello world");
+});
 connectDB()
   .then(() => {
     app.listen(PORT, () => {
