@@ -1,7 +1,7 @@
 import Twitterlogo from "../components/Twitterlogo";
 const AuthPage = () => {
   return (
-    <div className="h-cover px-8 max-h-full w-full flex items-center justify-center">
+    <div className="h-cover px-4 max-h-full w-full flex items-center justify-center">
       <div className="flex flex-col md:flex-row justify-between w-full md:w-[65%] mx-auto items-center">
         <div className="w-full hidden md:block">
           <Twitterlogo />
@@ -13,7 +13,7 @@ const AuthPage = () => {
           </div>
 
           <h1 className="text-6xl font-bold my-4 md:m-0">Happening now </h1>
-          <p className="text-3xl font-bold mb-2 md:my-8">Join today. </p>
+          <h2 className="text-3xl font-bold mb-2 md:my-8">Join today. </h2>
           <div className="w-full md:w-[70%]">
             <button className="bg-white border-gray-300 border text-center py-2 rounded-full w-full">
               Sign up with Google

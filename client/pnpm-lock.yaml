@@ -5,6 +5,12 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@fontsource-variable/gelasio':
+    specifier: ^5.0.2
+    version: 5.0.2
+  '@fontsource-variable/noto-serif-lao':
+    specifier: ^5.0.18
+    version: 5.0.18
   pkg.json:
     specifier: ^2.0.8
     version: 2.0.8
@@ -528,6 +534,14 @@ packages:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@fontsource-variable/gelasio@5.0.2:
+    resolution: {integrity: sha512-jG7GRXuC0ZB+EFJRr/qXjcPhWD+eOXN2l5jSwGzWe0Ff79v9uBUFmbjL34Pjh9vIalpuaWOlzmC7YzYd8iEzXQ==}
+    dev: false
+
+  /@fontsource-variable/noto-serif-lao@5.0.18:
+    resolution: {integrity: sha512-Gs9W+/028Zr0EZI7O2BSEEfBbO2UUvwolLpoDNeNT17Qo8QsjmTc+4kjfI9srtTzqhxPKyXWKHAh99N1QdVCww==}
+    dev: false
 
   /@humanwhocodes/config-array@0.11.14:
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
