@@ -1,12 +1,12 @@
-import { useState } from "react";
+import AuthPage from "./pages/AuthPage";
+import "./custom.css";
+import Footer from "./components/Footer";
 
 function App() {
-  const [count, setCount] = useState(0);
   return (
     <>
-      <p>{count}</p>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-      <button onClick={() => setCount(count + 1)}>Decrment</button>
+      <AuthPage />
+      <Footer />
     </>
   );
 }

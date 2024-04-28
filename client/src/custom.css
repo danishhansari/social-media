@@ -1,0 +1,7 @@
+.h-cover {
+  height: calc(100vh - 80px);
+}
+
+* {
+  font-family: "noto-serif-lao", Arial, Helvetica, sans-serif;
+}
