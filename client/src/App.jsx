@@ -3,19 +3,22 @@ import "./custom.css";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 
 function App() {
   return (
     <>
-      <Router>
-        <Suspense fallback={<Loader />}>
-          <Routes>
-            <Route path="/login" element={<AuthPage />} />
-          </Routes>
-        </Suspense>
-        <Footer />;
-      </Router>
+      <RecoilRoot>
+        <Router>
+          <Suspense fallback={<Loader />}>
+            <Routes>
+              <Route path="/login" element={<AuthPage />} />
+            </Routes>
+          </Suspense>
+          <Footer />;
+        </Router>
+      </RecoilRoot>
     </>
   );
 }
