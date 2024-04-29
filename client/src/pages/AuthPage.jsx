@@ -1,5 +1,4 @@
 import Twitterlogo from "../components/Twitterlogo";
-import googleLogo from "../assets/google.png";
 import LoginPortal from "./LoginPortal";
 import { useState } from "react";
 import SignInGoogle from "../components/SignInGoogle";
@@ -29,10 +28,7 @@ const AuthPage = () => {
                 <p className="text-gray-200">or</p>
                 <hr className="w-1/2 border-gray-50" />
               </div>
-              <button
-                className="text-center py-2 rounded-full w-full my-2 bg-primary text-white font-medium hover:bg-primary/90 transition-colors"
-                onClick={() => setShowPortal(true)}
-              >
+              <button className="text-center py-2 rounded-full w-full my-2 bg-primary text-white font-medium hover:bg-primary/90 transition-colors">
                 Create account
               </button>
               <p className="text-sm">
@@ -41,7 +37,10 @@ const AuthPage = () => {
               </p>
               <div className="mt-8">
                 <p>Already have an account</p>
-                <button className="md:my-4 text-center py-2 rounded-full w-full my-2 bg-primary text-white font-medium   hover:bg-primary/90 transition-colors">
+                <button
+                  className="md:my-4 text-center py-2 rounded-full w-full my-2 bg-primary text-white font-medium   hover:bg-primary/90 transition-colors"
+                  onClick={() => setShowPortal(true)}
+                >
                   Sign in
                 </button>
               </div>

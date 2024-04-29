@@ -15,7 +15,9 @@ export default {
     colors: {
       primary: "#1DA1F2",
       white: "#fff",
-      black: "#000"
+      black: "#000",
+      grey: "#A1AAaD",
+      lightgrey: "#A2AAAD",
     },
   },
   plugins: [],
