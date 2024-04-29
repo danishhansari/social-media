@@ -1,9 +1,3 @@
 .h-cover {
   height: calc(99vh - 80px);
 }
-
-@media (max-width: 756px) {
-  .h-cover {
-    height: calc(90vh - 80px);
-  }
-}

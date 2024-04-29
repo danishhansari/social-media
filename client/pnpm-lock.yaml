@@ -5,15 +5,18 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@flaticon/flaticon-uicons':
+    specifier: ^3.2.1
+    version: 3.2.1
   '@fontsource-variable/gelasio':
     specifier: ^5.0.2
     version: 5.0.2
   '@fontsource-variable/noto-serif-lao':
     specifier: ^5.0.18
     version: 5.0.18
-  pkg.json:
-    specifier: ^2.0.8
-    version: 2.0.8
+  package.json:
+    specifier: ^2.0.1
+    version: 2.0.1
   react:
     specifier: ^18.2.0
     version: 18.3.1
@@ -534,6 +537,12 @@ packages:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@flaticon/flaticon-uicons@3.2.1:
+    resolution: {integrity: sha512-eLHbrC15uwtTXqBtPMEXcYvb0M1lYmTINkQe46NgEx5EkJKrKSjbziD08rvSGDih3r0tYEYoRz3Gjz6F5NaDHQ==}
+    optionalDependencies:
+      esbuild-linux-64: 0.14.54
+    dev: false
 
   /@fontsource-variable/gelasio@5.0.2:
     resolution: {integrity: sha512-jG7GRXuC0ZB+EFJRr/qXjcPhWD+eOXN2l5jSwGzWe0Ff79v9uBUFmbjL34Pjh9vIalpuaWOlzmC7YzYd8iEzXQ==}
@@ -1448,6 +1457,15 @@ packages:
       is-date-object: 1.0.5
       is-symbol: 1.0.4
     dev: true
+
+  /esbuild-linux-64@0.14.54:
+    resolution: {integrity: sha512-EgjAgH5HwTbtNsTqQOXWApBaPVdDn7XcK+/PtJwZLT1UmpLoznPd8c5CxqsH2dQK3j05YsB3L17T8vE7cp4cCg==}
+    engines: {node: '>=12'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
 
   /esbuild@0.20.2:
     resolution: {integrity: sha512-WdOOppmUNU+IbZ0PaDiTst80zjnrOkyJNHoKupIcVyU8Lvla3Ugx94VzkQ32Ijqd7UhHJy75gNWDMUekcrSJ6g==}
@@ -2580,6 +2598,15 @@ packages:
       semver: 5.7.2
     dev: false
 
+  /package.json@2.0.1:
+    resolution: {integrity: sha512-pSxZ6XR5yEawRN2ekxx9IKgPN5uNAYco7MCPxtBEWMKO3UKWa1X2CtQMzMgloeGj2g2o6cue3Sb5iPkByIJqlw==}
+    deprecated: Use pkg.json instead.
+    dependencies:
+      git-package-json: 1.4.10
+      git-source: 1.1.10
+      package-json: 2.4.0
+    dev: false
+
   /parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
     engines: {node: '>=6'}
@@ -2657,14 +2684,6 @@ packages:
     resolution: {integrity: sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==}
     engines: {node: '>= 6'}
     dev: true
-
-  /pkg.json@2.0.8:
-    resolution: {integrity: sha512-iIBceNPwO452wLbF73GCV5z/TY9UydLWEV+wBjegAObPF/PihDL9ZUr2g2EFI7XqPFMTLEX/QtL63Z+zzFZ7yA==}
-    dependencies:
-      git-package-json: 1.4.10
-      git-source: 1.1.10
-      package-json: 2.4.0
-    dev: false
 
   /possible-typed-array-names@1.0.0:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
