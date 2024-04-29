@@ -1,12 +1,33 @@
 import { createPortal } from "react-dom";
 import closeIcon from "../assets/close.png";
+import Twitterlogo from "../components/Twitterlogo";
+import SignInGoogle from "../components/SignInGoogle";
 const LoginPortal = ({ setShowPortal }) => {
   return createPortal(
     <>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white h-full md:h-[60vh] w-full max-w-[600px] rounded-lg p-4">
-        <button className="w-3" onClick={() => setShowPortal((prev) => !prev)}>
-          <img src={closeIcon} alt="close icon" />
-        </button>
+      <div className="fixed bg-black/50 h-full w-full top-0 left-0 overflow-hidden flex items-center justify-center">
+        <div className="rounded-xl h-full md:h-[60vh] bg-white w-full max-w-[600px] p-6">
+          <div className="header flex">
+            <button
+              className="w-3"
+              onClick={() => setShowPortal((prev) => !prev)}
+            >
+              <img src={closeIcon} alt="close icon" />
+            </button>
+            <div className="w-10 mx-auto">
+              <Twitterlogo />
+            </div>
+          </div>
+          <div className="w-1/2 mx-auto">
+            <h2 className="text-3xl my-4">Sign in to X</h2>
+            <SignInGoogle />
+            <div className="relative gap-2 my-4 flex items-center">
+              <hr className="w-1/2 border-gray-50" />
+              <p className="text-gray-200">or</p>
+              <hr className="w-1/2 border-gray-50" />
+            </div>
+          </div>
+        </div>
       </div>
     </>,
     document.getElementById("root")
