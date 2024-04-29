@@ -3,6 +3,7 @@ import closeIcon from "../assets/close.png";
 import Twitterlogo from "../components/Twitterlogo";
 import Username from "./SigninMultipage/Username";
 import { useState } from "react";
+import Password from "./SigninMultipage/Password";
 
 const LoginPortal = ({ setShowPortal }) => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -10,6 +11,8 @@ const LoginPortal = ({ setShowPortal }) => {
   const PageToRender = () => {
     if (currentPage === 0) {
       return <Username setCurrentPage={setCurrentPage} />;
+    } else {
+      return <Password setCurrentPage={setCurrentPage} />;
     }
   };
 
