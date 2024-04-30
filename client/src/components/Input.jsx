@@ -1,10 +1,4 @@
-const Input = ({
-  type,
-  placeholder,
-  disable = false,
-  value,
-  onchange,
-}) => {
+const Input = ({ type, placeholder, disable = false, value, onchange }) => {
   return (
     <input
       type={type}
@@ -12,7 +6,7 @@ const Input = ({
       disabled={disable}
       value={value}
       onChange={onchange}
-      className="py-3 w-full pl-2 rounded-md text-xl focus:outline-none border-grey border focus:border-primary focus:border-2"
+      className="py-3 w-full pl-2 rounded-md text-xl focus:outline-none border-grey border focus:border-primary focus:border-2 disabled:bg-lightgrey disabled:border-none disabled:text-grey"
     />
   );
 };

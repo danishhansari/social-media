@@ -11,19 +11,24 @@ const Password = ({ setCurrentPage }) => {
     <div className="w-full mt-8 md:w-1/2 mx-auto">
       <h2 className="text-3xl my-4">Enter your password</h2>
 
-      <Input
-        placeholder="Phone, email and username"
-        value={input.email}
-        onchange={handleInput}
-        type="text"
-        disable={true}
-      />
-      <Input
-        placeholder="Phone, email and username"
-        value={input.password}
-        onchange={handleInput}
-        type="text"
-      />
+      <div className="my-4">
+        <Input
+          placeholder="Phone, email and username"
+          value={input.email}
+          type="text"
+          disable={true}
+        />
+      </div>
+
+      <div className="my-2">
+        <Input
+          placeholder="Password"
+          value={input.password}
+          onchange={handleInput}
+          type="password"
+        />
+      </div>
+      <p className="text-primary">Forgot password?</p>
 
       <button
         className="bg-black py-2 w-full rounded-full text-center text-white font-medium mt-4 hover:bg-black/90"
