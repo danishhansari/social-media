@@ -1,8 +1,12 @@
 import Twitterlogo from "../components/Twitterlogo";
-import LoginPortal from "./portal/LoginPortal";
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import SignInGoogle from "../components/SignInGoogle";
-import RegisterPortal from "./portal/RegisterPortal";
+import SmallLoader from "../components/SmallLoader";
+
+const LoginPortal = lazy(() => import("./portal/LoginPortal"));
+const RegisterPortal = lazy(() => import("./portal/RegisterPortal"));
+// import LoginPortal from "./portal/LoginPortal";
+// import RegisterPortal from "./portal/RegisterPortal";
 
 const AuthPage = () => {
   const [showSignInPortal, setShowSignInPortal] = useState(false);
@@ -12,12 +16,16 @@ const AuthPage = () => {
       <div className="h-cover px-4 max-h-full w-full flex items-center justify-center">
         {/* Login portal */}
         {showSignInPortal && (
-          <LoginPortal setShowSignInPortal={setShowSignInPortal} />
+          <Suspense fallback={<SmallLoader />}>
+            <LoginPortal setShowSignInPortal={setShowSignInPortal} />
+          </Suspense>
         )}
 
         {/* Register Portal */}
         {showSignupPortal && (
-          <RegisterPortal setShowSignupPortal={setShowSignupPortal} />
+          <Suspense fallback={<SmallLoader />}>
+            <RegisterPortal setShowSignupPortal={setShowSignupPortal} />
+          </Suspense>
         )}
 
         <div className="flex flex-col md:flex-row justify-between w-full md:w-[50%] mx-auto items-center">

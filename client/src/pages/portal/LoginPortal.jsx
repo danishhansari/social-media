@@ -1,18 +1,29 @@
 import { createPortal } from "react-dom";
 import closeIcon from "../../assets/close.png";
 import Twitterlogo from "../../components/Twitterlogo";
-import Username from "../SigninMultipage/Username";
-import { useState } from "react";
-import Password from "../SigninMultipage/Password";
+import { useState, lazy, Suspense } from "react";
+const Username = lazy(() => import("../SigninMultipage/Username"));
+const Password = lazy(() => import("../SigninMultipage/Password"));
+import SmallLoader from "../../components/SmallLoader";
+// import Username from "../SigninMultipage/Username";
+// import Password from "../SigninMultipage/Password";
 
 const LoginPortal = ({ setShowSignInPortal }) => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const PageToRender = () => {
     if (currentPage === 0) {
-      return <Username setCurrentPage={setCurrentPage} />;
+      return (
+        <Suspense fallback={<SmallLoader />}>
+          <Username setCurrentPage={setCurrentPage} />
+        </Suspense>
+      );
     } else {
-      return <Password setCurrentPage={setCurrentPage} />;
+      return (
+        <Suspense fallback={<SmallLoader />}>
+          <Password setCurrentPage={setCurrentPage} />
+        </Suspense>
+      );
     }
   };
 
