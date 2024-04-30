@@ -1,16 +1,16 @@
-import { createPortal } from "react-dom";
-import closeIcon from "../assets/close.png";
-import Twitterlogo from "../components/Twitterlogo";
-import Username from "./SigninMultipage/Username";
 import { useState } from "react";
-import Password from "./SigninMultipage/Password";
+import { createPortal } from "react-dom";
+import closeIcon from "../../assets/close.png";
+import Password from "../SigninMultipage/Password";
+import Twitterlogo from "../../components/Twitterlogo";
+import CreateAccount from "../SignupMultipage/CreateAccount";
 
-const LoginPortal = ({ setShowPortal }) => {
+const RegisterPortal = ({ setShowSignupPortal }) => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const PageToRender = () => {
     if (currentPage === 0) {
-      return <Username setCurrentPage={setCurrentPage} />;
+      return <CreateAccount setCurrentPage={setCurrentPage} />;
     } else {
       return <Password setCurrentPage={setCurrentPage} />;
     }
@@ -23,7 +23,7 @@ const LoginPortal = ({ setShowPortal }) => {
           <div className="header flex">
             <button
               className="w-3"
-              onClick={() => setShowPortal((prev) => !prev)}
+              onClick={() => setShowSignupPortal((prev) => !prev)}
             >
               <img src={closeIcon} alt="close icon" />
             </button>
@@ -39,4 +39,4 @@ const LoginPortal = ({ setShowPortal }) => {
   );
 };
 
-export default LoginPortal;
+export default RegisterPortal;
