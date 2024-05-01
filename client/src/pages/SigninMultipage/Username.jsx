@@ -5,9 +5,6 @@ import { signinAtom } from "../../states/atom";
 const Username = ({ setCurrentPage }) => {
   const [input, setInput] = useRecoilState(signinAtom);
 
-  // const handleInput = (e) => {
-  //   setInput((prev) => ({ ...prev, email: e.target.value }));
-  // };
   return (
     <>
       <div className="w-full mt-8 md:w-1/2 mx-auto">

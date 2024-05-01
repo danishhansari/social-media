@@ -1,10 +1,10 @@
 import User from "../models/user.model.js";
 import { z } from "zod";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const registerUser = async (req, res) => {
   const { name, email, dob, password, username } = req.body;
-  console.log(name, email, password, username);
   // Zod Schema for input
 
   const nameSchema = z.string().min(3).trim();
@@ -20,6 +20,46 @@ const registerUser = async (req, res) => {
     emailSchema.parse(email);
     usernameSchema.parse(username);
     dobSchema.parse(dob);
+
+    bcrypt.hash(password, 10, async (err, hashPassword) => {
+      if (err) {
+        return res.status(500).json(err);
+      }
+      const user = new User({
+        name,
+        username,
+        email,
+        dob,
+        password: hashPassword,
+      });
+
+      const expiresDate = new Date();
+      expiresDate.setDate(expiresDate.getDate() + 180);
+
+      const options = {
+        httpOnly: true,
+        sameSite: "strict",
+        secure: true,
+        expires: expiresDate,
+      };
+
+      user
+        .save()
+        .then((newUser) => {
+          const token = generateToken(newUser._id, newUser.email);
+          newUser.password = undefined;
+          return res
+            .status(201)
+            .cookie("token", token, options)
+            .json({ newUser });
+        })
+        .catch((err) => {
+          if (err.code === 11000) {
+            return res.status(406).json("Email already exist");
+          }
+          return res.status(500).json({ "Internal server Error": err.message });
+        });
+    });
   } catch (err) {
     console.log(err.message);
     return res.status(400).json(err);
@@ -28,6 +68,54 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { email, password, username } = req.body;
+
+  const usernameSchema = z.string().min(5).trim().toLowerCase().optional();
+  const emailSchema = z.string().email().min(3).trim().optional();
+  const passwordSchema = z.string().min(6).trim();
+
+  if (!email && !username) {
+    return res.status(401).json({ message: "Email or username is required" });
+  }
+
+  try {
+    usernameSchema.parse(username);
+    emailSchema.parse(email);
+    passwordSchema.parse(password);
+
+    const existUser = await User.findOne({
+      $or: [{ email }, { username }],
+    });
+
+    if (!existUser) {
+      return res
+        .status(401)
+        .json({ message: "No user exist with this credentials" });
+    }
+
+    const expiresDate = new Date();
+    expiresDate.setDate(expiresDate.getDate() + 180);
+
+    const options = {
+      httpOnly: true,
+      sameSite: "strict",
+      secure: true,
+      expires: expiresDate,
+    };
+
+    bcrypt.compare(password, existUser.password).then((result) => {
+      if (!result) {
+        return res.status(401).json({ message: "Password is incorrect" });
+      }
+      const token = generateToken(existUser._id, existUser.email);
+      return res
+        .status(200)
+        .cookie("token", token, options)
+        .json({ message: "Logged in successful" });
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ message: error.message });
+  }
 };
 
 const generateToken = (id, email) => {
