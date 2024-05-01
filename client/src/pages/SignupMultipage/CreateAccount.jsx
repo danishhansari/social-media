@@ -1,7 +1,6 @@
 import Input from "../../components/Input";
 import { useRecoilState } from "recoil";
-import { signinAtom } from "../../atom";
-import { useState } from "react";
+import { signupAtom } from "../../states/atom";
 
 const monthOption = [
   "January",
@@ -22,12 +21,9 @@ const startYear = new Date().getFullYear(); // Get the current year
 const endYear = startYear - 120; // Calculate the end year
 
 const CreateAccount = ({ setCurrentPage }) => {
-  const [input, setInput] = useRecoilState(signinAtom);
-  const [isEmail, setIsEmail] = useState(true);
+  const [input, setInput] = useRecoilState(signupAtom);
 
-  const handleInput = (e) => {
-    setInput((prev) => ({ ...prev, email: e.target.value }));
-  };
+  console.log(input);
   return (
     <>
       <div className="w-full mt-2 md:w-[70%] mx-auto">
@@ -36,25 +32,24 @@ const CreateAccount = ({ setCurrentPage }) => {
         <div className="my-4">
           <Input
             placeholder="Name"
-            value={input.email}
-            onchange={handleInput}
+            defaultValue={input.name}
+            value={input.name}
+            onchange={(e) =>
+              setInput((prev) => ({ ...prev, name: e.target.value }))
+            }
             type="text"
           />
         </div>
 
         <div>
           <Input
-            placeholder={isEmail ? "Email" : "Phone"}
+            placeholder="Email"
             value={input.email}
-            onchange={handleInput}
-            type={isEmail ? "email" : "tel"}
+            onchange={(e) =>
+              setInput((prev) => ({ ...prev, email: e.target.value }))
+            }
+            type="email"
           />
-          <button
-            className="text-primary my-2 block ml-auto hover:underline"
-            onClick={() => setIsEmail((prev) => !prev)}
-          >
-            Use {isEmail ? "phone" : "email"} Instead
-          </button>
         </div>
 
         <div>
@@ -68,6 +63,12 @@ const CreateAccount = ({ setCurrentPage }) => {
             <select
               name="month"
               id="month"
+              onChange={(e) =>
+                setInput((prev) => ({
+                  ...prev,
+                  dob: { ...prev.dob, month: e.target.value },
+                }))
+              }
               className="py-2 px-4 border-grey border bg-white rounded-sm w-full text-black"
             >
               <option value="" className="text-white bg-white hidden">
@@ -86,6 +87,12 @@ const CreateAccount = ({ setCurrentPage }) => {
               name="day"
               id="day"
               className="py-2 px-4 border-grey border bg-white rounded-sm w-full text-black"
+              onChange={(e) =>
+                setInput((prev) => ({
+                  ...prev,
+                  dob: { ...prev.dob, day: e.target.value },
+                }))
+              }
             >
               <option value="" className="text-white bg-white hidden">
                 Day
@@ -101,6 +108,12 @@ const CreateAccount = ({ setCurrentPage }) => {
               name="year"
               id="year"
               className="py-2 px-4 border-grey border bg-white rounded-sm w-full text-black"
+              onChange={(e) =>
+                setInput((prev) => ({
+                  ...prev,
+                  dob: { ...prev.dob, year: e.target.value },
+                }))
+              }
             >
               <option value="" className="text-white bg-white hidden">
                 Year

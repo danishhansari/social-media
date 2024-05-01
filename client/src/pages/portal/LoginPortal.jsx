@@ -5,8 +5,6 @@ import { useState, lazy, Suspense } from "react";
 const Username = lazy(() => import("../SigninMultipage/Username"));
 const Password = lazy(() => import("../SigninMultipage/Password"));
 import SmallLoader from "../../components/SmallLoader";
-// import Username from "../SigninMultipage/Username";
-// import Password from "../SigninMultipage/Password";
 
 const LoginPortal = ({ setShowSignInPortal }) => {
   const [currentPage, setCurrentPage] = useState(0);

@@ -1,13 +1,13 @@
 import SignInGoogle from "../../components/SignInGoogle";
 import Input from "../../components/Input";
 import { useRecoilState } from "recoil";
-import { signinAtom } from "../../atom";
+import { signinAtom } from "../../states/atom";
 const Username = ({ setCurrentPage }) => {
   const [input, setInput] = useRecoilState(signinAtom);
 
-  const handleInput = (e) => {
-    setInput((prev) => ({ ...prev, email: e.target.value }));
-  };
+  // const handleInput = (e) => {
+  //   setInput((prev) => ({ ...prev, email: e.target.value }));
+  // };
   return (
     <>
       <div className="w-full mt-8 md:w-1/2 mx-auto">
@@ -21,9 +21,11 @@ const Username = ({ setCurrentPage }) => {
         </div>
 
         <Input
-          placeholder="Phone, email and username"
+          placeholder="Email and username"
           value={input.email}
-          onchange={handleInput}
+          onchange={(e) =>
+            setInput((prev) => ({ ...prev, email: e.target.value }))
+          }
           type="text"
         />
 

@@ -1,33 +1,13 @@
 import Input from "../../components/Input";
 import { useRecoilState } from "recoil";
-import { signinAtom } from "../../atom";
-import { useState } from "react";
-
-const monthOption = [
-  "January",
-  "Febraury",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-const startYear = new Date().getFullYear(); // Get the current year
-const endYear = startYear - 120; // Calculate the end year
+import { signupAtom } from "../../states/atom";
 
 const CreateAccountPassword = ({ setCurrentPage }) => {
-  const [input, setInput] = useRecoilState(signinAtom);
-  const [isEmail, setIsEmail] = useState(true);
-
+  const [input, setInput] = useRecoilState(signupAtom);
   const handleInput = (e) => {
-    setInput((prev) => ({ ...prev, email: e.target.value }));
+    setInput((prev) => ({ ...prev, password: e.target.value }));
   };
+  console.log(input)
   return (
     <>
       <div className="w-full mt-4 md:w-[70%] mx-auto">
@@ -37,7 +17,7 @@ const CreateAccountPassword = ({ setCurrentPage }) => {
         <div>
           <Input
             placeholder="Password"
-            value={input.email}
+            value={input.password}
             onchange={handleInput}
             type="password"
           />
