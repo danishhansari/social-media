@@ -1,9 +1,9 @@
 import Input from "../../components/Input";
 import { useRecoilState } from "recoil";
 import { signinAtom } from "../../states/atom";
-const Password = ({ setCurrentPage }) => {
+const Password = () => {
   const [input, setInput] = useRecoilState(signinAtom);
-  console.log(input)
+  console.log(input);
   return (
     <div className="w-full mt-8 md:w-1/2 mx-auto">
       <h2 className="text-3xl my-4">Enter your password</h2>
@@ -35,7 +35,7 @@ const Password = ({ setCurrentPage }) => {
       >
         Next
       </button>
-     
+
       <p className="text-grey mt-24">
         Dont have an account? <span className="text-primary">Sign up</span>
       </p>

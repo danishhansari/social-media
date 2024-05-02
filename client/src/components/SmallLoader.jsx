@@ -1,6 +1,6 @@
 const SmallLoader = () => {
   return (
-    <div className="w-full flex items-center justify-center absolute h-screen">
+    <div className="w-full flex items-center justify-center h-screen fixed top-0 left-0">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 100 100"
@@ -10,7 +10,7 @@ const SmallLoader = () => {
         style={{
           shapeRendering: "auto",
           display: "block",
-          background: "rgb(255, 255, 255)",
+          background: "transparent",
         }}
       >
         <g>

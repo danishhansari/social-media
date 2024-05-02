@@ -123,4 +123,37 @@ const generateToken = (id, email) => {
   return token;
 };
 
-export { registerUser, loginUser };
+const userExist = async (req, res) => {
+  const { username, email } = req.body;
+
+  const usernameSchema = z.string().min(3).trim().toLowerCase().optional();
+  const emailSchema = z.string().email().min(3).trim().optional();
+
+  if (!username && !email) {
+    return res
+      .status(401)
+      .json({ message: "Username or either email is required" });
+  }
+
+  try {
+    usernameSchema.parse(username);
+    emailSchema.parse(email);
+
+    const user = await User.exists({
+      $or: [{ username }, { email }],
+    });
+
+    console.log(user);
+    if (!user) {
+      return res
+        .status(200)
+        .json({ message: "user not exist", userExist: false });
+    }
+    return res.status(200).json({ message: "okay", userExist: true });
+  } catch (err) {
+    console.log(err);
+    return res.status(403).json({ message: err.message });
+  }
+};
+
+export { registerUser, loginUser, userExist };
