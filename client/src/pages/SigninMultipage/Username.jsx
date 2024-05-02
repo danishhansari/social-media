@@ -4,10 +4,12 @@ import { useRecoilState } from "recoil";
 import { signinAtom } from "../../states/atom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import Twitterlogo from "../../components/Twitterlogo";
+import closeIcon from "../../assets/close.png";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const Username = ({ setCurrentPage }) => {
+const Username = ({ setCurrentPage, setShowSignInPortal }) => {
   const [input, setInput] = useRecoilState(signinAtom);
 
   const handleUsername = () => {
@@ -40,6 +42,17 @@ const Username = ({ setCurrentPage }) => {
 
   return (
     <>
+      <div className="header flex">
+        <button
+          className="w-3"
+          onClick={() => setShowSignInPortal((prev) => !prev)}
+        >
+          <img src={closeIcon} alt="close icon" />
+        </button>
+        <div className="w-10 mx-auto">
+          <Twitterlogo />
+        </div>
+      </div>
       <div className="w-full mt-8 md:w-1/2 mx-auto">
         <h2 className="text-3xl my-4">Sign in to X</h2>
         <SignInGoogle />

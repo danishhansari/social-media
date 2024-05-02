@@ -3,8 +3,10 @@ import { useRecoilState } from "recoil";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { signinAtom } from "../../states/atom";
+import Twitterlogo from "../../components/Twitterlogo";
+import closeIcon from "../../assets/close.png";
 
-const Password = () => {
+const Password = ({ setShowSignInPortal }) => {
   const [input, setInput] = useRecoilState(signinAtom);
   console.log(input);
 
@@ -31,41 +33,54 @@ const Password = () => {
   };
 
   return (
-    <div className="w-full mt-8 md:w-1/2 mx-auto">
-      <h2 className="text-3xl my-4">Enter your password</h2>
-
-      <div className="my-4">
-        <Input
-          placeholder="email and username"
-          value={input.email}
-          type="text"
-          disable={true}
-        />
+    <>
+      <div className="header flex">
+        <button
+          className="w-3"
+          onClick={() => setShowSignInPortal((prev) => !prev)}
+        >
+          <img src={closeIcon} alt="close icon" />
+        </button>
+        <div className="w-10 mx-auto">
+          <Twitterlogo />
+        </div>
       </div>
+      <div className="w-full mt-8 md:w-1/2 mx-auto">
+        <h2 className="text-3xl my-4">Enter your password</h2>
 
-      <div className="my-2">
-        <Input
-          placeholder="Password"
-          value={input.password}
-          onchange={(e) =>
-            setInput((prev) => ({ ...prev, password: e.target.value }))
-          }
-          type="password"
-        />
+        <div className="my-4">
+          <Input
+            placeholder="email and username"
+            value={input.email}
+            type="text"
+            disable={true}
+          />
+        </div>
+
+        <div className="my-2">
+          <Input
+            placeholder="Password"
+            value={input.password}
+            onchange={(e) =>
+              setInput((prev) => ({ ...prev, password: e.target.value }))
+            }
+            type="password"
+          />
+        </div>
+        <p className="text-primary">Forgot password?</p>
+
+        <button
+          className="bg-black py-2 w-full rounded-full text-center text-white font-medium mt-8 hover:bg-black/90"
+          onClick={handleLogin}
+        >
+          Next
+        </button>
+
+        <p className="text-grey mt-24">
+          Dont have an account? <span className="text-primary">Sign up</span>
+        </p>
       </div>
-      <p className="text-primary">Forgot password?</p>
-
-      <button
-        className="bg-black py-2 w-full rounded-full text-center text-white font-medium mt-8 hover:bg-black/90"
-        onClick={handleLogin}
-      >
-        Next
-      </button>
-
-      <p className="text-grey mt-24">
-        Dont have an account? <span className="text-primary">Sign up</span>
-      </p>
-    </div>
+    </>
   );
 };
 

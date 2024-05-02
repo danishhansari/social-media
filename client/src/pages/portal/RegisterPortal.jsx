@@ -15,13 +15,19 @@ const RegisterPortal = ({ setShowSignupPortal }) => {
     if (currentPage === 0) {
       return (
         <Suspense fallback={<SmallLoader />}>
-          <CreateAccount setCurrentPage={setCurrentPage} />
+          <CreateAccount
+            setCurrentPage={setCurrentPage}
+            setShowSignupPortal={setShowSignupPortal}
+          />
         </Suspense>
       );
     } else {
       return (
         <Suspense fallback={<SmallLoader />}>
-          <CreateAccountPassword setCurrentPage={setCurrentPage} />
+          <CreateAccountPassword
+            setCurrentPage={setCurrentPage}
+            setShowSignupPortal={setShowSignupPortal}
+          />
         </Suspense>
       );
     }
@@ -31,7 +37,7 @@ const RegisterPortal = ({ setShowSignupPortal }) => {
     <>
       <div className="fixed bg-white md:bg-black/50 h-full w-full top-0 left-0 overflow-hidden flex items-center justify-center">
         <div className="rounded-xl md:h-[60vh] bg-white w-full max-w-[600px] px-4 py-2">
-          <div className="header flex">
+          {/* <div className="header flex">
             <button
               className="w-3"
               onClick={() => setShowSignupPortal((prev) => !prev)}
@@ -41,7 +47,7 @@ const RegisterPortal = ({ setShowSignupPortal }) => {
             <div className="w-10 mx-auto">
               <Twitterlogo />
             </div>
-          </div>
+          </div> */}
           <PageToRender />
         </div>
       </div>

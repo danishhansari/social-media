@@ -1,6 +1,8 @@
 import Input from "../../components/Input";
 import { useRecoilState } from "recoil";
 import { signupAtom } from "../../states/atom";
+import Twitterlogo from "../../components/Twitterlogo";
+import closeIcon from "../../assets/close.png";
 
 const monthOption = [
   "January",
@@ -20,12 +22,23 @@ const monthOption = [
 const startYear = new Date().getFullYear(); // Get the current year
 const endYear = startYear - 120; // Calculate the end year
 
-const CreateAccount = ({ setCurrentPage }) => {
+const CreateAccount = ({ setCurrentPage, setShowSignupPortal }) => {
   const [input, setInput] = useRecoilState(signupAtom);
 
   console.log(input);
   return (
     <>
+      <div className="header flex">
+        <button
+          className="w-3"
+          onClick={() => setShowSignupPortal((prev) => !prev)}
+        >
+          <img src={closeIcon} alt="close icon" />
+        </button>
+        <div className="w-10 mx-auto">
+          <Twitterlogo />
+        </div>
+      </div>
       <div className="w-full mt-2 md:w-[70%] mx-auto">
         <h2 className="text-3xl my-4">Create your account</h2>
 

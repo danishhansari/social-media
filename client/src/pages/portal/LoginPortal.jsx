@@ -14,13 +14,16 @@ const LoginPortal = ({ setShowSignInPortal }) => {
     if (currentPage === 0) {
       return (
         <Suspense fallback={<SmallLoader />}>
-          <Username setCurrentPage={setCurrentPage} />
+          <Username
+            setCurrentPage={setCurrentPage}
+            setShowSignInPortal={setShowSignInPortal}
+          />
         </Suspense>
       );
     } else {
       return (
         <Suspense fallback={<SmallLoader />}>
-          <Password />
+          <Password setShowSignInPortal={setShowSignInPortal} />
         </Suspense>
       );
     }
@@ -31,7 +34,7 @@ const LoginPortal = ({ setShowSignInPortal }) => {
       <Toaster />
       <div className="fixed bg-white md:bg-black/50 h-full w-full top-0 left-0 overflow-hidden flex items-center justify-center">
         <div className="rounded-xl md:h-[60vh] bg-white w-full max-w-[600px] px-4 py-2">
-          <div className="header flex">
+          {/* <div className="header flex">
             <button
               className="w-3"
               onClick={() => setShowSignInPortal((prev) => !prev)}
@@ -41,7 +44,7 @@ const LoginPortal = ({ setShowSignInPortal }) => {
             <div className="w-10 mx-auto">
               <Twitterlogo />
             </div>
-          </div>
+          </div> */}
           <PageToRender />
         </div>
       </div>
