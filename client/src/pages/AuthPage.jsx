@@ -2,15 +2,15 @@ import Twitterlogo from "../components/Twitterlogo";
 import { useState, lazy, Suspense } from "react";
 import SignInGoogle from "../components/SignInGoogle";
 import SmallLoader from "../components/SmallLoader";
+import Footer from "../components/Footer";
 
 const LoginPortal = lazy(() => import("./portal/LoginPortal"));
 const RegisterPortal = lazy(() => import("./portal/RegisterPortal"));
-// import LoginPortal from "./portal/LoginPortal";
-// import RegisterPortal from "./portal/RegisterPortal";
 
 const AuthPage = () => {
   const [showSignInPortal, setShowSignInPortal] = useState(false);
   const [showSignupPortal, setShowSignupPortal] = useState(false);
+
   return (
     <>
       <div className="h-cover px-4 max-h-full w-full flex items-center justify-center">
@@ -68,6 +68,7 @@ const AuthPage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

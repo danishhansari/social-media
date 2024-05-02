@@ -1,10 +1,10 @@
 import { lazy, Suspense } from "react";
 import "./custom.css";
-import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 const AuthPage = lazy(() => import("./pages/AuthPage"));
+const HomePage = lazy(() => import("./pages/HomePage"));
 
 function App() {
   return (
@@ -14,10 +14,9 @@ function App() {
           <Suspense fallback={<Loader />}>
             <Routes>
               <Route path="/login" element={<AuthPage />} />
-              <Route path="/" element={<div>Logging succesfully</div>} />
+              <Route path="/" element={<HomePage />} />
             </Routes>
           </Suspense>
-          <Footer />;
         </Router>
       </RecoilRoot>
     </>

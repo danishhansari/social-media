@@ -82,7 +82,6 @@ const CreateAccountPassword = ({ setShowSignupPortal }) => {
 
         <button
           className="bg-black py-3 w-full rounded-full text-center text-white font-medium mt-8 hover:bg-black/90 disabled:bg-black/40 "
-          disabled={!input.password || input.password.length < 8 ? true : false}
           onClick={handleSubmit}
         >
           Sign up
