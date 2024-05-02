@@ -28,6 +28,7 @@ const Username = ({ setCurrentPage }) => {
         if (data.userExist === false) {
           return toast.error(data.message);
         } else {
+          setInput((prev) => ({ ...prev, isEmail: isEmail }));
           return setCurrentPage((prev) => prev + 1);
         }
       })

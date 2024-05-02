@@ -1,9 +1,35 @@
 import Input from "../../components/Input";
 import { useRecoilState } from "recoil";
+import { toast } from "react-hot-toast";
+import axios from "axios";
 import { signinAtom } from "../../states/atom";
+
 const Password = () => {
   const [input, setInput] = useRecoilState(signinAtom);
   console.log(input);
+
+  const handleLogin = () => {
+    if (!input.password) {
+      return toast.error("password is required");
+    }
+
+    const url = `${import.meta.env.VITE_SERVER}/user/login`;
+
+    const requestData = input.isEmail
+      ? { email: input.email, password: input.password }
+      : { username: input.email, password: input.password };
+
+    axios
+      .post(url, requestData)
+      .then(({ data }) => {
+        console.log(data);
+        return toast.success("Logged in ");
+      })
+      .catch((err) => {
+        return toast.error(err.response.data.message);
+      });
+  };
+
   return (
     <div className="w-full mt-8 md:w-1/2 mx-auto">
       <h2 className="text-3xl my-4">Enter your password</h2>
@@ -31,7 +57,7 @@ const Password = () => {
 
       <button
         className="bg-black py-2 w-full rounded-full text-center text-white font-medium mt-8 hover:bg-black/90"
-        onClick={() => setCurrentPage((prev) => prev + 1)}
+        onClick={handleLogin}
       >
         Next
       </button>

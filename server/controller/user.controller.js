@@ -143,12 +143,12 @@ const userExist = async (req, res) => {
       $or: [{ username }, { email }],
     });
 
-    console.log(user);
     if (!user) {
       return res
         .status(200)
         .json({ message: "user not exist", userExist: false });
     }
+
     return res.status(200).json({ message: "okay", userExist: true });
   } catch (err) {
     console.log(err);

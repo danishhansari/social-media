@@ -5,6 +5,7 @@ export const signinAtom = atom({
   default: {
     email: "",
     password: "",
+    isEmail: false,
   },
 });
 
