@@ -6,11 +6,10 @@ const SideBar = lazy(() => import("../components/Sidebar"));
 const HomePage = () => {
   return (
     <>
-      <div className="bg-white">
+      <div className="bg-white md:px-[15vw] mx-auto">
         <Suspense fallback={<SmallLoader />}>
           <SideBar />
         </Suspense>
-        <div>HomePage</div>
       </div>
     </>
   );
