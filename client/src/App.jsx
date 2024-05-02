@@ -14,6 +14,7 @@ function App() {
           <Suspense fallback={<Loader />}>
             <Routes>
               <Route path="/login" element={<AuthPage />} />
+              <Route path="/" element={<div>Logging succesfully</div>} />
             </Routes>
           </Suspense>
           <Footer />;

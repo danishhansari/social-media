@@ -17,7 +17,7 @@ const userSchema = new Schema(
       unique: true,
     },
     dob: {
-      type: String,
+      type: Date,
     },
     password: {
       type: String,

@@ -6,12 +6,16 @@ import { nanoid } from "nanoid";
 
 const registerUser = async (req, res) => {
   const { name, email, dob, password } = req.body;
-  // Zod Schema for input
 
+  // Zod Schema for input
   const nameSchema = z.string().min(3).trim();
   const emailSchema = z.string().email().min(3).trim();
   const passwordSchema = z.string().min(6).trim();
-  const dobSchema = z.string().min(1); // Just for testing purpose it is String
+  const dobSchema = z.object({
+    year: z.string().min(1),
+    month: z.string().min(1),
+    day: z.string().min(1),
+  });
 
   //   Checking the zod verification
   try {
@@ -21,7 +25,12 @@ const registerUser = async (req, res) => {
     dobSchema.parse(dob);
 
     let username = email.split("@")[0];
-    username += nanoid().substring(0, 5);
+    username += nanoid().substring(0, 3);
+
+    const { month, day, year } = dob;
+    const dateString = `${month} ${day} ${year}`;
+    const dateObject = new Date(dateString);
+    const date = dateObject.toISOString();
 
     bcrypt.hash(password, 10, async (err, hashPassword) => {
       if (err) {
@@ -31,7 +40,7 @@ const registerUser = async (req, res) => {
         name,
         username,
         email,
-        dob,
+        dob: date,
         password: hashPassword,
       });
 
@@ -50,10 +59,7 @@ const registerUser = async (req, res) => {
         .then((newUser) => {
           const token = generateToken(newUser._id, newUser.email);
           newUser.password = undefined;
-          return res
-            .status(201)
-            .cookie("token", token, options)
-            .json({ newUser });
+          return res.status(201).json({ newUser, token, options });
         })
         .catch((err) => {
           if (err.code === 11000) {
@@ -112,7 +118,7 @@ const loginUser = async (req, res) => {
       return res
         .status(200)
         .cookie("token", token, options)
-        .json({ message: "Logged in successful" });
+        .json({ message: "Logged in successful", token, options });
     });
   } catch (error) {
     console.log(error);

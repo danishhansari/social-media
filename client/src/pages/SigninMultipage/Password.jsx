@@ -5,9 +5,11 @@ import axios from "axios";
 import { signinAtom } from "../../states/atom";
 import Twitterlogo from "../../components/Twitterlogo";
 import closeIcon from "../../assets/close.png";
+import { useNavigate } from "react-router-dom";
 
 const Password = ({ setShowSignInPortal }) => {
   const [input, setInput] = useRecoilState(signinAtom);
+  const navigate = useNavigate();
   console.log(input);
 
   const handleLogin = () => {
@@ -25,6 +27,7 @@ const Password = ({ setShowSignInPortal }) => {
       .post(url, requestData)
       .then(({ data }) => {
         console.log(data);
+        navigate("/");
         return toast.success("Logged in ");
       })
       .catch((err) => {

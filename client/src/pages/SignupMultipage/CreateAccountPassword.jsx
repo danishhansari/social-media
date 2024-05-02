@@ -5,8 +5,10 @@ import Twitterlogo from "../../components/Twitterlogo";
 import closeIcon from "../../assets/close.png";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const CreateAccountPassword = ({ setShowSignupPortal }) => {
+  const navigate = useNavigate();
   const [input, setInput] = useRecoilState(signupAtom);
 
   const handleSubmit = () => {
@@ -15,19 +17,27 @@ const CreateAccountPassword = ({ setShowSignupPortal }) => {
     }
 
     const url = `${import.meta.env.VITE_SERVER}/user/register`;
-    // axios
-    //   .post(url, {
-    //     name: input.name,
-    //     email: input.email,
-    //     password: input.password,
-    //     dob: input.dob,
-    //   })
-    //   .then(({ data }) => {
-    //     console.log(data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    let loadingToast = toast.loading("Registering...");
+    axios
+      .post(url, {
+        name: input.name,
+        email: input.email,
+        password: input.password,
+        dob: input.dob,
+      })
+      .then(({ data }) => {
+        console.log(data);
+        navigate("/");
+        setInput("");
+        return toast.success("Register successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+        return toast.error("Error while creating account");
+      })
+      .finally(() => {
+        toast.dismiss(loadingToast);
+      });
   };
 
   return (
