@@ -3,6 +3,8 @@ import { useRecoilState } from "recoil";
 import { signupAtom } from "../../states/atom";
 import Twitterlogo from "../../components/Twitterlogo";
 import closeIcon from "../../assets/close.png";
+import { toast } from "react-hot-toast";
+import axios from "axios";
 
 const monthOption = [
   "January",
@@ -22,10 +24,48 @@ const monthOption = [
 const startYear = new Date().getFullYear(); // Get the current year
 const endYear = startYear - 120; // Calculate the end year
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const CreateAccount = ({ setCurrentPage, setShowSignupPortal }) => {
   const [input, setInput] = useRecoilState(signupAtom);
 
-  console.log(input);
+  const handleSubmit = () => {
+    console.log(input);
+
+    if (
+      !input.name ||
+      !input.email ||
+      !input.dob.month ||
+      !input.dob.day ||
+      !input.dob.year
+    ) {
+      return toast.error("All fields is required");
+    }
+
+    const isEmail = emailRegex.test(input.email);
+
+    if (!isEmail) {
+      return toast.error("Email is invalid");
+    }
+
+    const url = `${import.meta.env.VITE_SERVER}/user/user-exist`;
+
+    axios
+      .post(url, { email: input.email })
+      .then(({ data }) => {
+        if (data.userExist) {
+          return toast.error("Email is already exists");
+        } else {
+          setInput((prev) => ({ ...prev, isEmail: isEmail }));
+          return setCurrentPage((prev) => prev + 1);
+        }
+      })
+      .catch((err) => {
+        const errMessage = JSON.parse(err.response.data.message);
+        toast.error(errMessage[0].message);
+      });
+  };
+
   return (
     <>
       <div className="header flex">
@@ -142,7 +182,7 @@ const CreateAccount = ({ setCurrentPage, setShowSignupPortal }) => {
 
         <button
           className="bg-black py-3 w-full rounded-full text-center text-white font-medium mt-8 hover:bg-black/90 disabled:bg-black/40 "
-          onClick={() => setCurrentPage((prev) => prev + 1)}
+            onClick={handleSubmit}
         >
           Next
         </button>

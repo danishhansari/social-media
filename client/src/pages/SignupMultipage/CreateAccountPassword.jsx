@@ -3,13 +3,33 @@ import { useRecoilState } from "recoil";
 import { signupAtom } from "../../states/atom";
 import Twitterlogo from "../../components/Twitterlogo";
 import closeIcon from "../../assets/close.png";
+import toast from "react-hot-toast";
+import axios from "axios";
 
-const CreateAccountPassword = ({ setCurrentPage, setShowSignupPortal }) => {
+const CreateAccountPassword = ({ setShowSignupPortal }) => {
   const [input, setInput] = useRecoilState(signupAtom);
-  const handleInput = (e) => {
-    setInput((prev) => ({ ...prev, password: e.target.value }));
+
+  const handleSubmit = () => {
+    if (!input.password || input.password.length < 8) {
+      toast.error("Password should more than 8 character");
+    }
+
+    const url = `${import.meta.env.VITE_SERVER}/user/register`;
+    // axios
+    //   .post(url, {
+    //     name: input.name,
+    //     email: input.email,
+    //     password: input.password,
+    //     dob: input.dob,
+    //   })
+    //   .then(({ data }) => {
+    //     console.log(data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
-  console.log(input);
+
   return (
     <>
       <div className="header flex">
@@ -31,7 +51,9 @@ const CreateAccountPassword = ({ setCurrentPage, setShowSignupPortal }) => {
           <Input
             placeholder="Password"
             value={input.password}
-            onchange={handleInput}
+            onchange={(e) => {
+              setInput((prev) => ({ ...prev, password: e.target.value }));
+            }}
             type="password"
           />
         </div>
@@ -50,8 +72,8 @@ const CreateAccountPassword = ({ setCurrentPage, setShowSignupPortal }) => {
 
         <button
           className="bg-black py-3 w-full rounded-full text-center text-white font-medium mt-8 hover:bg-black/90 disabled:bg-black/40 "
-          disabled={true}
-          onClick={() => setCurrentPage((prev) => prev + 1)}
+          disabled={!input.password || input.password.length < 8 ? true : false}
+          onClick={handleSubmit}
         >
           Sign up
         </button>
