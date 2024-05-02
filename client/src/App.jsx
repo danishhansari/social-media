@@ -3,6 +3,7 @@ import "./custom.css";
 import Loader from "./components/Loader";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+const Sidebar = lazy(() => import("./components/Sidebar"));
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const HomePage = lazy(() => import("./pages/HomePage"));
 
@@ -14,7 +15,9 @@ function App() {
           <Suspense fallback={<Loader />}>
             <Routes>
               <Route path="/login" element={<AuthPage />} />
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<Sidebar />}>
+                <Route element={<HomePage />} />
+              </Route>
             </Routes>
           </Suspense>
         </Router>

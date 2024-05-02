@@ -35,40 +35,42 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="max-w-[280px] p-4 border-r h-screen border-grey">
-        <FaXTwitter size={30} className="ml-4" />
-        {routes.map((item, index) => {
-          return (
-            <Link
-              key={index}
-              to={item.route}
-              className={`flex items-center gap-4 my-4 group rounded-full ${
-                location.pathname === item.route ? "font-semibold" : ""
-              }`}
-            >
-              <div className="group-hover:bg-lightgrey flex p-2 gap-4 rounded-full px-4">
-                <p>{item.icon}</p>
-                <p className="text-2xl">{item.name}</p>
-              </div>
-            </Link>
-          );
-        })}
-        <button className="bg-primary text-white w-full py-4 px-8 rounded-full font-semibold text-xl hover:bg-primary/80 mt-2">
-          Post
-        </button>
+      <div className="relative flex gap-2 max-md:flex-col">
+        <div className="max-w-[280px] w-full p-2 md:p-4 border-r min-h-screen border-grey md:mx-[15vw]">
+          <FaXTwitter size={30} className="ml-2" />
+          {routes.map((item, index) => {
+            return (
+              <Link
+                key={index}
+                to={item.route}
+                className={`flex items-center gap-4 my-1 md:my-4 group rounded-full ${
+                  location.pathname === item.route ? "font-semibold" : ""
+                }`}
+              >
+                <div className="group-hover:bg-lightgrey flex gap-4 rounded-full p-2">
+                  <p>{item.icon}</p>
+                  <p className="text-2xl">{item.name}</p>
+                </div>
+              </Link>
+            );
+          })}
+          <button className="bg-primary text-white w-2/3 md:w-full py-4 px-4 rounded-full font-semibold text-xl hover:bg-primary/80 mt-2">
+            Post
+          </button>
 
-        <Link to={"/user-route"} className="block mt-[50%] md:mt-[70%]">
-          <div className="flex items-center justify-between px-3">
-            <img src="" alt="" />
-            <div>
-              <p>Danish</p>
-              <p className="text-darkgrey">@danish_an</p>
+          <Link to={"/user-route"} className="block mt-[50%] md:mt-[70%]">
+            <div className="flex items-center justify-between px-3">
+              <img src="" alt="" />
+              <div>
+                <p>Danish</p>
+                <p className="text-darkgrey">@danish_an</p>
+              </div>
+              <BsThreeDots />
             </div>
-            <BsThreeDots />
-          </div>
-        </Link>
+          </Link>
+        </div>
+        <Outlet />
       </div>
-      <Outlet />
     </>
   );
 };
