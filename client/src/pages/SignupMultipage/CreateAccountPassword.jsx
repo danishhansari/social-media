@@ -6,6 +6,7 @@ import closeIcon from "../../assets/close.png";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const CreateAccountPassword = ({ setShowSignupPortal }) => {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const CreateAccountPassword = ({ setShowSignupPortal }) => {
         console.log(data);
         navigate("/");
         setInput("");
+        Cookies.set("token", data.token, data.options);
         return toast.success("Register successfully");
       })
       .catch((err) => {

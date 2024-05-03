@@ -6,6 +6,7 @@ import { signinAtom } from "../../states/atom";
 import Twitterlogo from "../../components/Twitterlogo";
 import closeIcon from "../../assets/close.png";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Password = ({ setShowSignInPortal }) => {
   const [input, setInput] = useRecoilState(signinAtom);
@@ -28,6 +29,7 @@ const Password = ({ setShowSignInPortal }) => {
       .then(({ data }) => {
         console.log(data);
         navigate("/");
+        Cookies.set("token", data.token, data.options);
         return toast.success("Logged in ");
       })
       .catch((err) => {
