@@ -6,13 +6,13 @@ const Loader = () => {
   const token = Cookies.get("token");
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!token) {
-  //     navigate("/login");
-  //   } else {
-  //     console.log(token);
-  //   }
-  // }, [token, navigate]);
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    } else {
+      console.log(token);
+    }
+  }, [token, navigate]);
 
   return (
     <div className="bg-white flex h-screen items-center justify-center">
