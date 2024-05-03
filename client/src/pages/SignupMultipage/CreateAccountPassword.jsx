@@ -28,9 +28,13 @@ const CreateAccountPassword = ({ setShowSignupPortal }) => {
       })
       .then(({ data }) => {
         console.log(data);
+        const expiresTimestamp = Math.floor(
+          new Date(data.options.expires).getTime() / 1000
+        );
+        data.options.expires = expiresTimestamp;
         navigate("/");
-        setInput("");
         Cookies.set("token", data.token, data.options);
+        setInput("");
         return toast.success("Register successfully");
       })
       .catch((err) => {
