@@ -11,6 +11,7 @@ const Loader = () => {
       navigate("/login");
     } else {
       console.log(token);
+      navigate("/");
     }
   }, [token, navigate]);
 

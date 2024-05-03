@@ -48,9 +48,6 @@ const registerUser = async (req, res) => {
       expiresDate.setDate(expiresDate.getDate() + 180);
 
       const options = {
-        httpOnly: true,
-        sameSite: "strict",
-        secure: true,
         expires: expiresDate,
       };
 
@@ -59,7 +56,10 @@ const registerUser = async (req, res) => {
         .then((newUser) => {
           const token = generateToken(newUser._id, newUser.email);
           newUser.password = undefined;
-          return res.status(201).json({ newUser, token, options });
+          return res
+            .status(201)
+            .cookie("token", token, options)
+            .json({ newUser, token, options });
         })
         .catch((err) => {
           if (err.code === 11000) {
@@ -100,14 +100,10 @@ const loginUser = async (req, res) => {
         .json({ message: "No user exist with this credentials" });
     }
 
-    const expiresDate = new Date();
-    expiresDate.setDate(expiresDate.getDate() + 180);
-
     const options = {
+      expires: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000),
       httpOnly: true,
-      sameSite: "strict",
       secure: true,
-      expires: expiresDate,
     };
 
     bcrypt.compare(password, existUser.password).then((result) => {

@@ -28,12 +28,12 @@ const Password = ({ setShowSignInPortal }) => {
       .post(url, requestData)
       .then(({ data }) => {
         console.log(data);
-        const expiresTimestamp = Math.floor(
-          new Date(data.options.expires).getTime() / 1000
-        );
-        data.options.expires = expiresTimestamp;
+        const date = data.options.expires * 1000;
+        const time = new Date(date);
         navigate("/");
-        Cookies.set("token", data.token, data.options);
+        document.cookie = `token=${data.token}; expires:${time.toUTCString()};${
+          data.options
+        }`;
         return toast.success("Logged in ");
       })
       .catch((err) => {
