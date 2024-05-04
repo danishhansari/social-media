@@ -27,15 +27,13 @@ const CreateAccountPassword = ({ setShowSignupPortal }) => {
         dob: input.dob,
       })
       .then(({ data }) => {
-        console.log(data);
-        const date = data.options.expires * 1000;
-        const time = new Date(date);
-        navigate("/");
-        document.cookie = `token=${data.token}; expires:${time.toUTCString()};${
-          data.options
-        }`;
-        navigate("/");
+        const { options, token } = data;
+        const time = new Date(options.expires).getTime();
+        Cookies.set("token", token, {
+          expires: new Date(time),
+        });
         setInput("");
+        navigate("/");
         return toast.success("Register successfully");
       })
       .catch((err) => {

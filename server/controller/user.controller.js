@@ -44,13 +44,10 @@ const registerUser = async (req, res) => {
         password: hashPassword,
       });
 
-      const expiresDate = new Date();
-      expiresDate.setDate(expiresDate.getDate() + 180);
-
       const options = {
-        expires: expiresDate,
+        expires: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000),
+        httpOnly: true,
       };
-
       user
         .save()
         .then((newUser) => {
@@ -103,7 +100,6 @@ const loginUser = async (req, res) => {
     const options = {
       expires: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000),
       httpOnly: true,
-      secure: true,
     };
 
     bcrypt.compare(password, existUser.password).then((result) => {

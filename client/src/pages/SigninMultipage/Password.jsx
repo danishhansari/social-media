@@ -28,12 +28,13 @@ const Password = ({ setShowSignInPortal }) => {
       .post(url, requestData)
       .then(({ data }) => {
         console.log(data);
-        const date = data.options.expires * 1000;
-        const time = new Date(date);
+        const { options, token } = data;
+        const time = new Date(options.expires).getTime();
+        Cookies.set("token", token, {
+          expires: new Date(time),
+        });
+        setInput("");
         navigate("/");
-        document.cookie = `token=${data.token}; expires:${time.toUTCString()};${
-          data.options
-        }`;
         return toast.success("Logged in ");
       })
       .catch((err) => {
