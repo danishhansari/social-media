@@ -1,5 +1,4 @@
 import { lazy, Suspense } from "react";
-import "./custom.css";
 import Loader from "./components/Loader";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { RecoilRoot } from "recoil";

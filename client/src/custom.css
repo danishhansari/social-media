@@ -1,3 +1,15 @@
 .h-cover {
   height: calc(99vh - 80px);
 }
+.sidebar-transition {
+  /* transition: right 3s ease-in-out; */
+  animation: right 3s ease;
+}
+@keyframes right {
+  0% {
+    right: -100%;
+  }
+  100% {
+    right: 0;
+  }
+}

@@ -8,7 +8,7 @@ import { CiCircleMore } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { BsThreeDots } from "react-icons/bs";
-import { Outlet } from "react-router-dom";
+import { useState } from "react";
 
 const routes = [
   { icon: <GoHome size={30} />, name: "Home", route: "/" },
@@ -32,11 +32,22 @@ const routes = [
 
 const Sidebar = () => {
   const location = useLocation();
+  const [isSidebar, setSidebar] = useState(false);
 
   return (
     <>
-      <div className="relative flex gap-2 max-md:flex-col">
-        <div className="max-w-[280px] w-full p-2 md:p-4 border-r min-h-screen border-grey md:mx-[15vw]">
+      <button
+        className="ml-[15vw] md:hidden"
+        onClick={() => setSidebar((prev) => !prev)}
+      >
+        Show Sidebar
+      </button>
+      <div
+        className={`relative flex transition-all gap-2 max-md:flex-col ${
+          isSidebar ? "right-full" : "-right-0"
+        } md:right-0`}
+      >
+        <div className="max-w-[280px] w-full p-2 md:p-4 md:border-r min-h-screen border-grey md:mx-[15vw]">
           <FaXTwitter size={30} className="ml-2" />
           {routes.map((item, index) => {
             return (
@@ -69,7 +80,6 @@ const Sidebar = () => {
             </div>
           </Link>
         </div>
-        <Outlet />
       </div>
     </>
   );
