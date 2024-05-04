@@ -44,7 +44,7 @@ const Sidebar = () => {
       </button>
       <div
         className={`relative flex transition-all gap-2 max-md:flex-col ${
-          isSidebar ? "right-full" : "-right-0"
+          isSidebar ? "right-0" : "right-full"
         } md:right-0`}
       >
         <div className="max-w-[280px] w-full p-2 md:p-4 md:border-r min-h-screen border-grey md:mx-[15vw]">
@@ -65,11 +65,11 @@ const Sidebar = () => {
               </Link>
             );
           })}
-          <button className="bg-primary text-white w-2/3 md:w-full py-4 px-4 rounded-full font-semibold text-xl hover:bg-primary/80 mt-2">
+          <button className="bg-primary text-white w-[80%] md:w-full py-4 px-4 rounded-full font-semibold text-xl hover:bg-primary/80 mt-2">
             Post
           </button>
 
-          <Link to={"/user-route"} className="block mt-[50%] md:mt-[70%]">
+          <Link to={"/user-route"} className="block mt-[40%] md:mt-[70%]">
             <div className="flex items-center justify-between px-3">
               <img src="" alt="" />
               <div>
