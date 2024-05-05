@@ -9,13 +9,16 @@ import {
 } from "react-icons/md";
 import { FaLink, FaArrowLeft } from "react-icons/fa6";
 import { BsBalloon } from "react-icons/bs";
+import SmallLoader from "./SmallLoader";
+import { getFullYear, getMonthAndYear } from "../common";
 
 const ProfileSection = () => {
   const { profile } = useParams();
   const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const fetchUser = (username) => {
+    setLoading(true);
     axios
       .get(`${import.meta.env.VITE_SERVER}/${username}`)
       .then(({ data: { ...data } }) => {
@@ -37,6 +40,8 @@ const ProfileSection = () => {
 
   return (
     <>
+      {loading && <SmallLoader />}
+
       <div className="w-full border-r border-grey">
         <div className="h-12 border-b border-grey flex items-center px-4 gap-6">
           <Link
@@ -47,69 +52,72 @@ const ProfileSection = () => {
           </Link>
           <div>
             <p className="text-black font-semibold">{user.name}</p>
-            <p className="text-sm text-grey font-medium">{"User.postCount"}</p>
+            <p className="text-sm text-grey font-medium">{user.post.length} posts</p>
           </div>
         </div>
 
-        <img src="./banner.jpeg" alt="" className="w-full max-h-[300px]" />
+        <img src={user.banner} alt="" className="w-full max-h-[300px]" />
 
-        <div className="flex justify-between items-center px-6">
+        <div className="flex justify-between items-center px-4 md:px-6">
           <img
-            src="./profilepic.jpeg"
-            className="rounded-full w-32 h-32 object-cover border-4 border-black -mt-16 relative z-10"
+            src={user.profile_img}
+            className="rounded-full w-20 h-20 md:w-32 md:h-32 object-cover border-4 border-white -mt-8 md:-mt-16 relative z-10"
             alt=""
           />
-          <div>
+          <div className="mt-4">
             <button className="rounded-full border border-grey px-4 py-1">
               Edit Profile
             </button>
           </div>
         </div>
 
-        <div className="user-profile px-4 mt-4">
+        <div className="user-profile p-4 mt-4 border-b border-lightgrey">
           <p className="font-bold text-2xl">{user.name}</p>
           <p className="text-grey">@{user.username}</p>
-          <p className="my-2">{"User.Bio"}</p>
+          <p className="my-2">{user.bio}</p>
 
           <div className="flex flex-wrap gap-3">
             <p className="text-grey">
-              <MdOutlineLocationOn className="inline-block" />
-              {"user.location"}
+              {user.location ? (
+                <>
+                  <MdOutlineLocationOn size={20} className="inline-block" />
+                  {user.location}
+                </>
+              ) : (
+                ""
+              )}
             </p>
             <p className="text-grey">
               <FaLink className="inline-block mr-1" />
-              <a
-                href="http://www.google.com"
-                className="text-primary"
-                target="_blank"
-              >
-                {"user website"}
+              <a href={user.website} className="text-primary" target="_blank">
+                {user.website}
               </a>
             </p>
 
             <p className="text-grey">
-              <BsBalloon className="inline-block" />
-              {"user Birth Day"}
+              <BsBalloon size={20} className="inline-block" />
+              Born {getFullYear(user.dob)}
             </p>
           </div>
 
-          <div className="flex">
+          <div className="flex gap-2">
             <p className="text-grey">
-              <MdOutlineDateRange className="inline-block" />
-              {"User Date of joining"}
+              <MdOutlineDateRange size={20} className="inline-block mr-1" />
+              Joined {getMonthAndYear(user.createdAt)}
             </p>
             <p className="text-grey">
-              <MdOutlineVerifiedUser className="inline-block" /> Verified email
+              <MdOutlineVerifiedUser size={20} className="inline-block" />{" "}
+              Verified email
             </p>
           </div>
 
           <div className="flex mt-4 gap-4">
             <p className="text-grey">
-              <b className="text-black mr-1">{"user follower"}</b>
+              <b className="text-black mr-1">{user?.following?.length}</b>
               Following
             </p>
             <p className="text-grey hover:border border-black">
-              <b className="text-black mr-1">{"user follower"}</b>
+              <b className="text-black mr-1">{user?.follower?.length}</b>
               Followers
             </p>
           </div>

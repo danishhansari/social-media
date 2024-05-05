@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import { nanoid } from "nanoid";
 
 const registerUser = async (req, res) => {
-  const { name, email, dob, password } = req.body;
+  const { name, email, dob, password, location, website } = req.body;
 
   // Zod Schema for input
   const nameSchema = z.string().min(3).trim();
@@ -42,6 +42,8 @@ const registerUser = async (req, res) => {
         email,
         dob: date,
         password: hashPassword,
+        location, 
+        website, 
       });
 
       const options = {
