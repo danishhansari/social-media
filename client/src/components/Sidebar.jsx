@@ -52,7 +52,7 @@ const SideNav = () => {
       <div
         className={`max-w-[300px] w-full absolute ${
           showSidebar ? "left-0" : "-left-full"
-        } h-screen border-r border-grey p-2 transition-all md:relative md:left-0  z-[2] bg-white`}
+        } h-screen border-r border-grey p-2 transition-all md:relative md:left-0  z-20 bg-white`}
       >
         <FaXTwitter size={30} className="ml-2" />
         {routes.map((item, index) => {
