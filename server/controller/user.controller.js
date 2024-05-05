@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import { nanoid } from "nanoid";
 
 const registerUser = async (req, res) => {
-  const { name, email, dob, password, location, website } = req.body;
+  const { name, email, dob, password, location, website, bio } = req.body;
 
   // Zod Schema for input
   const nameSchema = z.string().min(3).trim();
@@ -25,7 +25,11 @@ const registerUser = async (req, res) => {
     dobSchema.parse(dob);
 
     let username = email.split("@")[0];
-    username += nanoid().substring(0, 3);
+    const usernameExists = await User.exists({ username });
+
+    if (usernameExists) {
+      username += nanoid().substring(0, 3);
+    }
 
     const { month, day, year } = dob;
     const dateString = `${month} ${day} ${year}`;
@@ -42,8 +46,9 @@ const registerUser = async (req, res) => {
         email,
         dob: date,
         password: hashPassword,
-        location, 
-        website, 
+        location,
+        website,
+        bio,
       });
 
       const options = {
@@ -52,9 +57,12 @@ const registerUser = async (req, res) => {
       };
       user
         .save()
-        .then((newUser) => {
+        .then(async (newUser) => {
           const token = generateToken(newUser._id, newUser.email);
           newUser.password = undefined;
+          await User.findByIdAndUpdate(newUser._id, {
+            accessToken: token,
+          });
           return res
             .status(201)
             .cookie("token", token, options)

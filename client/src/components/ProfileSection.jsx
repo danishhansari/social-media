@@ -11,11 +11,15 @@ import { FaLink, FaArrowLeft } from "react-icons/fa6";
 import { BsBalloon } from "react-icons/bs";
 import SmallLoader from "./SmallLoader";
 import { getFullYear, getMonthAndYear } from "../common";
+import { useRecoilValue } from "recoil";
+import { currentUserAtom } from "../states/atom";
+import { AiOutlineMessage } from "react-icons/ai";
 
 const ProfileSection = () => {
   const { profile } = useParams();
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
+  const currentUser = useRecoilValue(currentUserAtom);
 
   const fetchUser = (username) => {
     setLoading(true);
@@ -67,9 +71,18 @@ const ProfileSection = () => {
             alt=""
           />
           <div className="mt-4">
-            <button className="rounded-full border border-grey px-4 py-1">
-              Edit Profile
-            </button>
+            {currentUser.accessToken === user.accessToken ? (
+              <button className="rounded-full border border-grey px-4 py-1">
+                Edit Profile
+              </button>
+            ) : (
+              <>
+                <button>
+                  <AiOutlineMessage size={30} />;
+                </button>
+                <button>Follow</button>
+              </>
+            )}
           </div>
         </div>
 

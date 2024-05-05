@@ -82,6 +82,7 @@ const userSchema = new Schema(
     },
     location: String,
     website: String,
+    accessToken: String,
     following: [],
     follower: [],
     post: [],

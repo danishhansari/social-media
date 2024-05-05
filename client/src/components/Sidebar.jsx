@@ -5,12 +5,13 @@ import { RiOpenaiFill } from "react-icons/ri";
 import { MdOutlineBookmarkBorder } from "react-icons/md";
 import { FaXTwitter, FaRegUser } from "react-icons/fa6";
 import { CiCircleMore } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { BsThreeDots } from "react-icons/bs";
 import { useRecoilValue } from "recoil";
-import { currentUserAtom } from "../states/atom";
+import { currentUserAtom } from "../states/atom.js";
 import { useRef, useState } from "react";
+import { CiLogout } from "react-icons/ci";
+import Cookie from "js-cookie";
 
 const routes = [
   { icon: <GoHome size={30} />, name: "Home", route: "/" },
@@ -41,6 +42,12 @@ const SideNav = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const userState = useRecoilValue(currentUserAtom);
   const sidebarRef = useRef();
+  const navigate = useNavigate();
+
+  const logoutUser = () => {
+    Cookie.remove("token");
+    navigate("/login");
+  };
 
   const closeSideBar = () => {
     sidebarRef.current.click();
@@ -85,19 +92,27 @@ const SideNav = () => {
           Post
         </button>
 
-        <Link
-          to={`/${userState.username}`}
-          className="block mt-[40%] md:mt-[90%]"
-        >
-          <div className="flex items-center justify-between px-3">
-            <img src="userState.profilepic" alt="" />
-            <div>
-              <p>{userState.name}</p>
-              <p className="text-darkgrey">@{userState.username}</p>
+        <div className="flex items-center justify-between mt-[50%] md:mt-[65%] w-full">
+          <Link to={`/${userState.username}`}>
+            <div className="flex items-center gap-4 justify-between px-3">
+              <img
+                className="w-12 h-12 rounded-full"
+                src={userState.profile_img}
+                alt={`${userState.name} profile pic`}
+              />
+              <div>
+                <p>{userState.name}</p>
+                <p className="text-darkgrey">@{userState.username}</p>
+              </div>
             </div>
-            <BsThreeDots />
-          </div>
-        </Link>
+          </Link>
+          <button
+            className="hover:bg-black/10 p-2 rounded-full"
+            onClick={logoutUser}
+          >
+            <CiLogout size={25} />
+          </button>
+        </div>
       </div>
     </>
   );
