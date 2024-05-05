@@ -30,7 +30,7 @@ const AuthPage = () => {
             </Suspense>
           )}
 
-          <div className="flex flex-col md:flex-row justify-between w-full md:w-[50%] mx-auto items-center">
+          <div className="flex flex-col h-screen md:flex-row justify-between w-full md:w-[50%] mx-auto items-center">
             <div className="w-full hidden md:block">
               <Twitterlogo />
             </div>

@@ -22,3 +22,8 @@ export const signupAtom = atom({
     password: "",
   },
 });
+
+export const currentUserAtom = atom({
+  key: "currentUserAtom",
+  default: {},
+});

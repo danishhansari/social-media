@@ -156,4 +156,16 @@ const userExist = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser, userExist };
+const getCurrentUser = async (req, res) => {
+  const { userId } = req;
+  if (!userId) {
+    res.status(403).json({ message: "UserId is required" });
+  }
+  const currentUser = await User.findById(userId).select("-password");
+  if (!currentUser) {
+    res.status(403).json({ message: "User not found" });
+  }
+  return res.status(200).json(currentUser);
+};
+
+export { registerUser, loginUser, userExist, getCurrentUser };

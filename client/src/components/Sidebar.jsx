@@ -5,10 +5,12 @@ import { RiOpenaiFill } from "react-icons/ri";
 import { MdOutlineBookmarkBorder } from "react-icons/md";
 import { FaXTwitter, FaRegUser } from "react-icons/fa6";
 import { CiCircleMore } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { BsThreeDots } from "react-icons/bs";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
+import { currentUserAtom } from "../states/atom";
 
 const routes = [
   { icon: <GoHome size={30} />, name: "Home", route: "/" },
@@ -26,61 +28,77 @@ const routes = [
     route: "/bookmark",
   },
   { icon: <FaXTwitter size={30} />, name: "Premium", route: "/premium" },
-  { icon: <FaRegUser size={30} />, name: "Profile", route: "/profile" },
+  {
+    icon: <FaRegUser size={30} />,
+    name: "Profile",
+    route: "",
+  },
   { icon: <CiCircleMore size={30} />, name: "More", route: "/more" },
 ];
 
 const Sidebar = () => {
   const location = useLocation();
   const [isSidebar, setSidebar] = useState(false);
-
+  const userState = useRecoilValue(currentUserAtom);
   return (
     <>
-      <button
-        className="ml-[15vw] md:hidden"
-        onClick={() => setSidebar((prev) => !prev)}
-      >
-        Show Sidebar
-      </button>
-      <div
-        className={`relative flex transition-all gap-2 max-md:flex-col ${
-          isSidebar ? "right-0" : "right-full"
-        } md:right-0`}
-      >
-        <div className="max-w-[280px] w-full p-2 md:p-4 md:border-r min-h-screen border-grey md:mx-[15vw]">
-          <FaXTwitter size={30} className="ml-2" />
-          {routes.map((item, index) => {
-            return (
-              <Link
-                key={index}
-                to={item.route}
-                className={`flex items-center gap-4 my-1 md:my-4 group rounded-full ${
-                  location.pathname === item.route ? "font-semibold" : ""
-                }`}
-              >
-                <div className="group-hover:bg-lightgrey flex gap-4 rounded-full p-2">
-                  <p>{item.icon}</p>
-                  <p className="text-2xl">{item.name}</p>
-                </div>
-              </Link>
-            );
-          })}
-          <button className="bg-primary text-white w-[80%] md:w-full py-4 px-4 rounded-full font-semibold text-xl hover:bg-primary/80 mt-2">
-            Post
-          </button>
+      <div>
+        <button
+          className="ml-[15vw] md:hidden"
+          onClick={() => setSidebar((prev) => !prev)}
+        >
+          Show Sidebar
+        </button>
+        <div
+          className={`relative flex transition-all gap-2 max-md:flex-col ${
+            isSidebar ? "right-0" : "right-full"
+          } md:right-0`}
+        >
+          <div className="max-w-[280px] w-full p-2 md:p-4 md:border-r min-h-screen border-grey md:mx-[15vw]">
+            <FaXTwitter size={30} className="ml-2" />
+            {routes.map((item, index) => {
+              return (
+                <Link
+                  key={index}
+                  to={
+                    item.name === "Profile"
+                      ? `/${userState.username}`
+                      : item.route
+                  }
+                  className={`flex items-center gap-4 my-1 md:my-4 group rounded-full ${
+                    location.pathname === item.route
+                      ? "font-semibold"
+                      : "font-medium"
+                  }`}
+                >
+                  <div className="group-hover:bg-lightgrey flex gap-4 rounded-full p-2">
+                    <p>{item.icon}</p>
+                    <p className="text-2xl">{item.name}</p>
+                  </div>
+                </Link>
+              );
+            })}
+            <button className="bg-primary text-white w-[80%] md:w-full py-4 px-4 rounded-full font-semibold text-xl hover:bg-primary/80 mt-2">
+              Post
+            </button>
 
-          <Link to={"/user-route"} className="block mt-[40%] md:mt-[70%]">
-            <div className="flex items-center justify-between px-3">
-              <img src="" alt="" />
-              <div>
-                <p>Danish</p>
-                <p className="text-darkgrey">@danish_an</p>
+            <Link
+              to={`/${userState.username}`}
+              className="block mt-[30%] md:mt-[70%]"
+            >
+              <div className="flex items-center justify-between px-3">
+                <img src={userState.profilepic} alt="" />
+                <div>
+                  <p>{userState.name}</p>
+                  <p className="text-darkgrey">@{userState.username}</p>
+                </div>
+                <BsThreeDots />
               </div>
-              <BsThreeDots />
-            </div>
-          </Link>
+            </Link>
+          </div>
         </div>
       </div>
+      <Outlet />
     </>
   );
 };
