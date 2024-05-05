@@ -4,13 +4,11 @@ import { AiOutlineMessage } from "react-icons/ai";
 import { RiOpenaiFill } from "react-icons/ri";
 import { MdOutlineBookmarkBorder } from "react-icons/md";
 import { FaXTwitter, FaRegUser } from "react-icons/fa6";
-import { CiCircleMore } from "react-icons/ci";
-import { Link, useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { CiCircleMore, CiLogout } from "react-icons/ci";
 import { currentUserAtom } from "../states/atom.js";
+import { useRecoilState } from "recoil";
 import { useRef, useState } from "react";
-import { CiLogout } from "react-icons/ci";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Cookie from "js-cookie";
 
 const routes = [
@@ -40,11 +38,12 @@ const routes = [
 const SideNav = () => {
   const location = useLocation();
   const [showSidebar, setShowSidebar] = useState(false);
-  const userState = useRecoilValue(currentUserAtom);
+  const [userState, setUserState] = useRecoilState(currentUserAtom);
   const sidebarRef = useRef();
   const navigate = useNavigate();
 
   const logoutUser = () => {
+    setUserState({});
     Cookie.remove("token");
     navigate("/login");
   };

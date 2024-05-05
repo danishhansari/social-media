@@ -76,12 +76,12 @@ const ProfileSection = () => {
                 Edit Profile
               </button>
             ) : (
-              <>
-                <button>
-                  <AiOutlineMessage size={30} />;
+              <div className="flex gap-4">
+                <button className="hover:bg-lightgrey p-2 rounded-full">
+                  <AiOutlineMessage size={20} />
                 </button>
                 <button>Follow</button>
-              </>
+              </div>
             )}
           </div>
         </div>
