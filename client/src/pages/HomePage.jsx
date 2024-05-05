@@ -1,12 +1,13 @@
 import { Suspense, lazy } from "react";
-import SmallLoader from "../components/SmallLoader";
 const Sidebar = lazy(() => import("../components/Sidebar"));
+import Loader from "../components/Loader";
 
 const HomePage = () => {
   return (
     <>
-      <Suspense fallback={<SmallLoader />}>
+      <Suspense fallback={<Loader />}>
         <Sidebar />
+        
       </Suspense>
     </>
   );

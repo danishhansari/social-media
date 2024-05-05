@@ -10,7 +10,6 @@ import { useLocation } from "react-router-dom";
 import { BsThreeDots } from "react-icons/bs";
 import { useRecoilValue } from "recoil";
 import { currentUserAtom } from "../states/atom";
-import { useState } from "react";
 
 const routes = [
   { icon: <GoHome size={30} />, name: "Home", route: "/" },
@@ -38,35 +37,24 @@ const routes = [
 
 const SideNav = () => {
   const location = useLocation();
-  const [showSidebar, setShowSidebar] = useState(true);
   const userState = useRecoilValue(currentUserAtom);
 
   return (
     <>
-      <button
-        className="flex md:hidden absolute z-10 top-0 right-0"
-        onClick={() => setShowSidebar((prev) => !prev)}
-      >
-        Show Sidebar Button
-      </button>
-      <div
-        className={`max-w-[300px] w-full absolute ${
-          showSidebar ? "left-0" : "-left-full"
-        } h-screen border-r border-grey p-2 transition-all md:relative md:left-0  z-[2] bg-white`}
-      >
+      <div className="max-w-[300px] w-full h-screen border-r border-grey p-4">
         <FaXTwitter size={30} className="ml-2" />
         {routes.map((item, index) => {
           return (
             <Link
               key={index}
               to={
-                item.name === "Profile" ? `/${userState.username}` : item.route
+                item.name === "Profile" ? `/{userState.username}` : item.route
               }
               className={`flex items-center gap-4 my-1 md:my-4 group rounded-full ${
                 location.pathname === item.route ? "font-bold" : "font-medium"
               }`}
             >
-              <div className="group-hover:bg-lightgrey flex gap-4 rounded-full p-1">
+              <div className="group-hover:bg-lightgrey flex gap-4 rounded-full p-2">
                 <p>{item.icon}</p>
                 <p className="text-2xl">{item.name}</p>
               </div>
@@ -80,7 +68,7 @@ const SideNav = () => {
 
         <Link
           to={`/${userState.username}`}
-          className="block mt-[40%] md:mt-[90%]"
+          className="block mt-[40%] md:mt-[70%]"
         >
           <div className="flex items-center justify-between px-3">
             <img src="userState.profilepic" alt="" />
