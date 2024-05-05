@@ -52,7 +52,9 @@ const ProfileSection = () => {
           </Link>
           <div>
             <p className="text-black font-semibold">{user.name}</p>
-            <p className="text-sm text-grey font-medium">{user.post.length} posts</p>
+            <p className="text-sm text-grey font-medium">
+              {user?.post?.length} posts
+            </p>
           </div>
         </div>
 
@@ -112,11 +114,11 @@ const ProfileSection = () => {
           </div>
 
           <div className="flex mt-4 gap-4">
-            <p className="text-grey">
+            <p className="text-grey hover:border-b border-grey cursor-pointer">
               <b className="text-black mr-1">{user?.following?.length}</b>
               Following
             </p>
-            <p className="text-grey hover:border border-black">
+            <p className="text-grey hover:border-b border-grey cursor-pointer">
               <b className="text-black mr-1">{user?.follower?.length}</b>
               Followers
             </p>

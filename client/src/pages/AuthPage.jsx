@@ -41,7 +41,7 @@ const AuthPage = () => {
               </div>
 
               <h1 className="text-4xl md:text-6xl my-4 md:m-0">
-                Happening now{" "}
+                Happening now
               </h1>
               <h2 className="text-xl md:text-3xl mb-2 md:my-8">Join today. </h2>
               <div className="w-full md:w-[80%]">
