@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 import { BsThreeDots } from "react-icons/bs";
 import { useRecoilValue } from "recoil";
 import { currentUserAtom } from "../states/atom";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const routes = [
   { icon: <GoHome size={30} />, name: "Home", route: "/" },
@@ -38,14 +38,20 @@ const routes = [
 
 const SideNav = () => {
   const location = useLocation();
-  const [showSidebar, setShowSidebar] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(false);
   const userState = useRecoilValue(currentUserAtom);
+  const sidebarRef = useRef();
+
+  const closeSideBar = () => {
+    sidebarRef.current.click();
+  };
 
   return (
     <>
       <button
         className="flex md:hidden absolute z-10 top-0 right-0"
         onClick={() => setShowSidebar((prev) => !prev)}
+        ref={sidebarRef}
       >
         Show Sidebar Button
       </button>
@@ -65,8 +71,9 @@ const SideNav = () => {
               className={`flex items-center gap-4 my-1 md:my-4 group rounded-full ${
                 location.pathname === item.route ? "font-bold" : "font-medium"
               }`}
+              onClick={closeSideBar}
             >
-              <div className="group-hover:bg-lightgrey flex gap-4 rounded-full p-1">
+              <div className="group-hover:bg-lightgrey flex gap-4 rounded-full py-2 px-4">
                 <p>{item.icon}</p>
                 <p className="text-2xl">{item.name}</p>
               </div>
