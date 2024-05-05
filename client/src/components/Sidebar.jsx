@@ -5,7 +5,7 @@ import { RiOpenaiFill } from "react-icons/ri";
 import { MdOutlineBookmarkBorder } from "react-icons/md";
 import { FaXTwitter, FaRegUser } from "react-icons/fa6";
 import { CiCircleMore } from "react-icons/ci";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { BsThreeDots } from "react-icons/bs";
 import { useState } from "react";
@@ -40,6 +40,7 @@ const Sidebar = () => {
   const location = useLocation();
   const [isSidebar, setSidebar] = useState(false);
   const userState = useRecoilValue(currentUserAtom);
+
   return (
     <>
       <div>
@@ -67,7 +68,7 @@ const Sidebar = () => {
                   }
                   className={`flex items-center gap-4 my-1 md:my-4 group rounded-full ${
                     location.pathname === item.route
-                      ? "font-semibold"
+                      ? "font-bold"
                       : "font-medium"
                   }`}
                 >
@@ -84,7 +85,7 @@ const Sidebar = () => {
 
             <Link
               to={`/${userState.username}`}
-              className="block mt-[30%] md:mt-[70%]"
+              className="block mt-[40%] md:mt-[70%]"
             >
               <div className="flex items-center justify-between px-3">
                 <img src={userState.profilepic} alt="" />
@@ -98,7 +99,6 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      <Outlet />
     </>
   );
 };

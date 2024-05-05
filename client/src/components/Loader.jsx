@@ -4,28 +4,31 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { currentUserAtom } from "../states/atom";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 
 const Loader = () => {
   const token = Cookies.get("token");
   const navigate = useNavigate();
-  const setCurrentUser = useSetRecoilState(currentUserAtom);
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);
+  console.log(currentUser);
 
   useEffect(() => {
-    !token
-      ? navigate("/login")
-      : axios
-          .get(`${import.meta.env.VITE_SERVER}/user/get-current-user`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then(({ data: { ...data } }) => {
-            setCurrentUser(data);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+    if (!token) {
+      navigate("/login");
+    } else {
+      axios
+        .get(`${import.meta.env.VITE_SERVER}/user/get-current-user`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(({ data: { ...data } }) => {
+          setCurrentUser(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, []);
 
   return (

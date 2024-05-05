@@ -1,7 +1,13 @@
+import { Suspense, lazy } from "react";
+import SmallLoader from "../components/SmallLoader";
+const Sidebar = lazy(() => import("../components/Sidebar"));
+
 const HomePage = () => {
   return (
     <>
-      <div className="bg-primary mx-auto">Hellow</div>
+      <Suspense fallback={<SmallLoader />}>
+        <Sidebar />
+      </Suspense>
     </>
   );
 };

@@ -168,4 +168,11 @@ const getCurrentUser = async (req, res) => {
   return res.status(200).json(currentUser);
 };
 
-export { registerUser, loginUser, userExist, getCurrentUser };
+const userProfile = async (req, res) => {
+  const { username } = req.params;
+  const user = await User.findOne({ username }).select("-password");
+  if (!user) return res.status(404).json({ message: "User not found" });
+  return res.status(200).json(user);
+};
+
+export { registerUser, loginUser, userExist, getCurrentUser, userProfile };
