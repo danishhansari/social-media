@@ -1,4 +1,4 @@
-const HomePageSection = () => {
+const HomePageMiddleSection = () => {
   return (
     <>
       <div className="w-full border-r border-grey">
@@ -13,4 +13,4 @@ const HomePageSection = () => {
   );
 };
 
-export default HomePageSection;
+export default HomePageMiddleSection;

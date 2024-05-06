@@ -1,7 +1,12 @@
 import { Suspense, lazy } from "react";
-const Sidebar = lazy(() => import("../components/Sidebar"));
 import Loader from "../components/Loader";
-import HomePageSection from "../components/HomePageSection";
+const Sidebar = lazy(() => import("../components/Sidebar"));
+const HomePageMiddleSection = lazy(() =>
+  import("../components/HomePageMiddleSection")
+);
+const HomePageRightSection = lazy(() =>
+  import("../components/HomePageRightSection")
+);
 
 const HomePage = () => {
   return (
@@ -9,7 +14,8 @@ const HomePage = () => {
       <Suspense fallback={<Loader />}>
         <div className="flex max-w-[1300px] mx-auto">
           <Sidebar />
-          <HomePageSection />
+          <HomePageMiddleSection />
+          <HomePageRightSection />
         </div>
       </Suspense>
     </>

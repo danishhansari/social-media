@@ -66,7 +66,7 @@ const SideNav = () => {
           showSidebar ? "left-0" : "-left-full"
         } h-screen border-r border-grey p-2 transition-all md:relative md:left-0  z-20 bg-white`}
       >
-        <FaXTwitter size={30} className="ml-2" />
+        <FaXTwitter size={30} className="ml-4" />
         {routes.map((item, index) => {
           return (
             <Link
@@ -91,7 +91,7 @@ const SideNav = () => {
           Post
         </button>
 
-        <div className="flex items-center justify-between mt-[50%] md:mt-[65%] w-full">
+        <div className="flex items-center justify-between mt-[40%] md:mt-[65%] w-full">
           <Link to={`/${userState.username}`}>
             <div className="flex items-center gap-4 justify-between px-3">
               <img

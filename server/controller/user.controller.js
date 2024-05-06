@@ -185,4 +185,29 @@ const userProfile = async (req, res) => {
   return res.status(200).json(user);
 };
 
-export { registerUser, loginUser, userExist, getCurrentUser, userProfile };
+const searchUserProfile = async (req, res) => {
+  console.log("this is fun got call");
+  const { username } = req.body;
+  const users = await User.find({
+    username: { $regex: username, $options: "i" },
+  })
+    .select(
+      "-password -accessToken -location -bio -banner -dob -following -follower -googleAuth -website -createdAt -updatedAt -email -post"
+    )
+    .limit(10)
+    .then((user) => {
+      return res.status(200).json(user);
+    })
+    .catch((err) => {
+      return res.status(500).json({ error: err.message });
+    });
+};
+
+export {
+  registerUser,
+  loginUser,
+  userExist,
+  getCurrentUser,
+  userProfile,
+  searchUserProfile,
+};

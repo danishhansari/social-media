@@ -2,7 +2,9 @@ import express from "express";
 import middleware from "./middleware/middleware.js";
 import userRoute from "./route/user.route.js";
 import { connectDB } from "./db/connect.db.js";
-import { userProfile } from "./controller/user.controller.js";
+import {
+  userProfile,
+} from "./controller/user.controller.js";
 
 const app = express();
 app.use(middleware);
