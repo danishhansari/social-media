@@ -1,6 +1,10 @@
-import Sidebar from "../components/Sidebar";
-import ProfileSection from "../components/ProfileSection";
+import { lazy } from "react";
+const Sidebar = lazy(() => import("../components/Sidebar"));
+const ProfileSection = lazy(() => import("../components/ProfileSection"));
 import { Toaster } from "react-hot-toast";
+const HomePageRightSection = lazy(() =>
+  import("../components/HomePageRightSection")
+);
 
 const ProfilePage = () => {
   return (
@@ -9,6 +13,7 @@ const ProfilePage = () => {
       <div className="flex max-w-[1300px] mx-auto">
         <Sidebar />
         <ProfileSection />
+        <HomePageRightSection />
       </div>
     </>
   );
