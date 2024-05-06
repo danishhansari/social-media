@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const HomePage = lazy(() => import("./pages/HomePage"));
-const ProfilePage = lazy(() => import("./pages/ProfilePage"));
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (

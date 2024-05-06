@@ -1,13 +1,12 @@
 import axios from "axios";
-import { lazy, useEffect, useState } from "react";
+import { lazy, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 const ProfileFlatCard = lazy(() => import("./ProfileFlatCard"));
-import SmallLoader from "./SmallLoader";
+const WhoToFollow = lazy(() => import("./WhoToFollow"));
 
 const HomePageRightSection = () => {
   const [searchInput, setSearchInput] = useState("");
   const [users, setUsers] = useState([]);
-  const [newUser, setNewUser] = useState([]);
   let interval;
 
   const searchUser = async (input) => {
@@ -16,20 +15,6 @@ const HomePageRightSection = () => {
       .post(`${import.meta.env.VITE_SERVER}/user/search`, { username: input })
       .then(({ data }) => {
         setUsers(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  useEffect(() => {
-    newUserProfile();
-  }, []);
-  const newUserProfile = async () => {
-    axios
-      .get(`${import.meta.env.VITE_SERVER}/user/new-user-profile`)
-      .then(({ data }) => {
-        setNewUser(data);
       })
       .catch((err) => {
         console.log(err);
@@ -79,27 +64,7 @@ const HomePageRightSection = () => {
         )}
       </div>
 
-      <div className="bg-white border-lightgrey shadow-md border rounded-md text-black relative z-10 py-0 mt-8">
-        <h1 className="text-2xl font-bold py-1 pl-4">Who to Follow</h1>
-        <div className="h-56 overflow-auto flex flex-col">
-          {newUser.length > 0 ? (
-            newUser.map((user) => {
-              return (
-                <ProfileFlatCard
-                  _id={user._id}
-                  key={user._id}
-                  username={user.username}
-                  profile_img={user.profile_img}
-                  name={user.name}
-                  followBtn={true}
-                />
-              );
-            })
-          ) : (
-            <SmallLoader className="self-center justify-self-center" />
-          )}
-        </div>
-      </div>
+      <WhoToFollow />
     </div>
   );
 };
