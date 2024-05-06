@@ -9,7 +9,7 @@ import {
 } from "react-icons/md";
 import { FaLink, FaArrowLeft } from "react-icons/fa6";
 import { BsBalloon } from "react-icons/bs";
-import SmallLoader from "./SmallLoader";
+import SmallLoader from "./BigLoader";
 import { getFullYear, getMonthAndYear } from "../common";
 import { useRecoilValue } from "recoil";
 import { currentUserAtom } from "../states/atom";
@@ -68,7 +68,7 @@ const ProfileSection = () => {
           <img
             src={user.profile_img}
             className="rounded-full w-20 h-20 md:w-32 md:h-32 object-cover border-4 border-white -mt-8 md:-mt-16 relative z-10"
-            alt=""
+            alt={`${user.name} profile image`}
           />
           <div className="mt-4">
             {currentUser.accessToken === user.accessToken ? (

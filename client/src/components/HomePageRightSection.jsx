@@ -1,7 +1,8 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { lazy, useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
-import ProfileFlatCard from "./ProfileFlatCard";
+const ProfileFlatCard = lazy(() => import("./ProfileFlatCard"));
+import SmallLoader from "./SmallLoader";
 
 const HomePageRightSection = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -78,26 +79,26 @@ const HomePageRightSection = () => {
         )}
       </div>
 
-      <div className="bg-white border-lightgrey shadow-md border rounded-md text-black relative z-10 flex flex-col py-0 h-56 overflow-auto mt-8">
+      <div className="bg-white border-lightgrey shadow-md border rounded-md text-black relative z-10 py-0 mt-8">
         <h1 className="text-2xl font-bold py-1 pl-4">Who to Follow</h1>
-        {newUser.length > 0 ? (
-          newUser.map((user) => {
-            return (
-              <ProfileFlatCard
-                _id={user._id}
-                key={user._id}
-                username={user.username}
-                profile_img={user.profile_img}
-                name={user.name}
-                followBtn={true}
-              />
-            );
-          })
-        ) : (
-          <p className="text-[14px] text-center py-4">
-            Try to searching for people, lists or keywords
-          </p>
-        )}
+        <div className="h-56 overflow-auto flex flex-col">
+          {newUser.length > 0 ? (
+            newUser.map((user) => {
+              return (
+                <ProfileFlatCard
+                  _id={user._id}
+                  key={user._id}
+                  username={user.username}
+                  profile_img={user.profile_img}
+                  name={user.name}
+                  followBtn={true}
+                />
+              );
+            })
+          ) : (
+            <SmallLoader className="self-center justify-self-center" />
+          )}
+        </div>
       </div>
     </div>
   );
