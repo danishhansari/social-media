@@ -203,6 +203,21 @@ const searchUserProfile = async (req, res) => {
     });
 };
 
+const newUserProfile = async (req, res) => {
+  const users = await User.find({})
+    .sort({ createdAt: -1 })
+    .select(
+      "-password -accessToken -location -bio -banner -dob -following -follower -googleAuth -website -createdAt -updatedAt -email -post"
+    )
+    .limit(10)
+    .then((user) => {
+      return res.status(200).json(user);
+    })
+    .catch((err) => {
+      return res.status(500).json({ error: err.message });
+    });
+};
+
 export {
   registerUser,
   loginUser,
@@ -210,4 +225,5 @@ export {
   getCurrentUser,
   userProfile,
   searchUserProfile,
+  newUserProfile,
 };

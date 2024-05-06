@@ -1,11 +1,12 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
-import { Link } from "react-router-dom";
+import ProfileFlatCard from "./ProfileFlatCard";
 
 const HomePageRightSection = () => {
   const [searchInput, setSearchInput] = useState("");
   const [users, setUsers] = useState([]);
+  const [newUser, setNewUser] = useState([]);
   let interval;
 
   const searchUser = async (input) => {
@@ -14,6 +15,20 @@ const HomePageRightSection = () => {
       .post(`${import.meta.env.VITE_SERVER}/user/search`, { username: input })
       .then(({ data }) => {
         setUsers(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    newUserProfile();
+  }, []);
+  const newUserProfile = async () => {
+    axios
+      .get(`${import.meta.env.VITE_SERVER}/user/new-user-profile`)
+      .then(({ data }) => {
+        setNewUser(data);
       })
       .catch((err) => {
         console.log(err);
@@ -47,23 +62,13 @@ const HomePageRightSection = () => {
         {users.length > 0 ? (
           users.map((user) => {
             return (
-              <Link
+              <ProfileFlatCard
+                _id={user._id}
                 key={user._id}
-                to={`/${user.username}`}
-                className="hover:bg-lightgrey px-4 py-2"
-              >
-                <div className="flex items-center gap-4">
-                  <img
-                    className="w-12 h-12 rounded-full"
-                    src={user.profile_img}
-                    alt={user.name}
-                  />
-                  <div>
-                    <p className="text-black font-semibold">{user.name}</p>
-                    <p className="text-darkgrey">@{user.username}</p>
-                  </div>
-                </div>
-              </Link>
+                username={user.username}
+                profile_img={user.profile_img}
+                name={user.name}
+              />
             );
           })
         ) : (
@@ -73,8 +78,26 @@ const HomePageRightSection = () => {
         )}
       </div>
 
-      <div className="bg-white border-black border">
-        <h1 className="text-2xl font-bold">Who to Follow</h1>
+      <div className="bg-white border-lightgrey shadow-md border rounded-md text-black relative z-10 flex flex-col py-0 h-56 overflow-auto mt-8">
+        <h1 className="text-2xl font-bold py-1 pl-4">Who to Follow</h1>
+        {newUser.length > 0 ? (
+          newUser.map((user) => {
+            return (
+              <ProfileFlatCard
+                _id={user._id}
+                key={user._id}
+                username={user.username}
+                profile_img={user.profile_img}
+                name={user.name}
+                followBtn={true}
+              />
+            );
+          })
+        ) : (
+          <p className="text-[14px] text-center py-4">
+            Try to searching for people, lists or keywords
+          </p>
+        )}
       </div>
     </div>
   );
