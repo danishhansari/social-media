@@ -5,11 +5,12 @@ import { RiOpenaiFill } from "react-icons/ri";
 import { MdOutlineBookmarkBorder } from "react-icons/md";
 import { FaXTwitter, FaRegUser } from "react-icons/fa6";
 import { CiCircleMore, CiLogout } from "react-icons/ci";
-import { currentUserAtom } from "../states/atom.js";
+import { currentUserAtom, sidebarToggle } from "../states/atom.js";
 import { useRecoilState } from "recoil";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Cookie from "js-cookie";
+import { IoMdClose } from "react-icons/io";
 
 const routes = [
   { icon: <GoHome size={30} />, name: "Home", route: "/" },
@@ -37,7 +38,7 @@ const routes = [
 
 const SideNav = () => {
   const location = useLocation();
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showSidebar, setShowSidebar] = useRecoilState(sidebarToggle);
   const [userState, setUserState] = useRecoilState(currentUserAtom);
   const sidebarRef = useRef();
   const navigate = useNavigate();
@@ -54,19 +55,20 @@ const SideNav = () => {
 
   return (
     <>
-      <button
-        className="flex md:hidden absolute z-10 top-0 right-0"
-        onClick={() => setShowSidebar((prev) => !prev)}
-        ref={sidebarRef}
-      >
-        Show Sidebar Button
-      </button>
       <div
         className={`max-w-[300px] w-full absolute ${
           showSidebar ? "left-0" : "-left-full"
         } h-screen border-r border-grey p-2 transition-all md:relative md:left-0  z-20 bg-white`}
       >
-        <FaXTwitter size={30} className="ml-2 md:ml-4" />
+        <div className="flex items-center justify-between">
+          <FaXTwitter size={30} className="ml-2 md:ml-4" />
+          <button
+            className="md:hidden hover:bg-grey/30 rounded-full p-1"
+            onClick={() => setShowSidebar((prev) => !prev)}
+          >
+            <IoMdClose size={20} />
+          </button>
+        </div>
         {routes.map((item, index) => {
           return (
             <Link
@@ -86,11 +88,9 @@ const SideNav = () => {
             </Link>
           );
         })}
-
         <button className="bg-primary text-white w-[80%] md:w-full py-4 px-4 rounded-full font-semibold text-xl hover:bg-primary/80 mt-2">
           Post
         </button>
-
         <div className="flex items-center justify-between mt-[30%] md:mt-[65%] w-full">
           <Link to={`/${userState.username}`}>
             <div className="flex items-center gap-4 justify-between px-3">

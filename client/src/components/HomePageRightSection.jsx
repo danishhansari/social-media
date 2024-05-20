@@ -30,7 +30,7 @@ const HomePageRightSection = () => {
   };
 
   return (
-    <div className="px-8 py-2 w-2/3">
+    <div className="hidden md:block px-8 py-2 w-2/3">
       <div className="relative">
         <input
           type="text"

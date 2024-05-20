@@ -27,3 +27,8 @@ export const currentUserAtom = atom({
   key: "currentUserAtom",
   default: {},
 });
+
+export const sidebarToggle = atom({
+  key: "sidebarToggle",
+  default: false,
+});
