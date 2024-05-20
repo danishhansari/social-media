@@ -5,6 +5,7 @@ import { RecoilRoot } from "recoil";
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const HomePage = lazy(() => import("./pages/HomePage"));
 import ProfilePage from "./pages/ProfilePage";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -13,8 +14,14 @@ function App() {
         <Router>
           <Suspense fallback={<Loader />}>
             <Routes>
-              <Route path="/login" element={<AuthPage />} />
-              <Route path="/" element={<HomePage />} />
+              <Route
+                path="/login"
+                element={<PrivateRoute component={<AuthPage />} />}
+              />
+              <Route
+                path="/"
+                element={<PrivateRoute component={<HomePage />} />}
+              />
               <Route path="/:profile" element={<ProfilePage />} />
             </Routes>
           </Suspense>
