@@ -41,6 +41,9 @@ const Feed = () => {
                 profile_img={tweet.user.profile_img}
                 username={tweet.user.username}
                 name={tweet.user.name}
+                replies={tweet.replies}
+                like={tweet.like}
+                bookmark={tweet.bookmark}
               />
             );
           })}
