@@ -171,7 +171,7 @@ const getCurrentUser = async (req, res) => {
   if (!userId) {
     res.status(403).json({ message: "UserId is required" });
   }
-  const currentUser = await User.findById(userId).select("-password");
+  const currentUser = await User.findById(userId).select("-password").lean();
   if (!currentUser) {
     res.status(403).json({ message: "User not found" });
   }
@@ -195,6 +195,7 @@ const searchUserProfile = async (req, res) => {
       "-password -accessToken -location -bio -banner -dob -following -follower -googleAuth -website -createdAt -updatedAt -email -post"
     )
     .limit(10)
+    .lean()
     .then((user) => {
       return res.status(200).json(user);
     })
@@ -210,6 +211,7 @@ const newUserProfile = async (req, res) => {
       "-password -accessToken -location -bio -banner -dob -following -follower -googleAuth -website -createdAt -updatedAt -email -post"
     )
     .limit(10)
+    .lean()
     .then((user) => {
       return res.status(200).json(user);
     })

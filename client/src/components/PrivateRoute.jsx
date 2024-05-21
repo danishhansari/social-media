@@ -14,6 +14,7 @@ const PrivateRoute = ({ component }) => {
 
   useEffect(() => {
     if (!token) {
+      setLoading(false)
       return navigate("/login");
     } else {
       axios

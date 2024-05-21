@@ -22,7 +22,10 @@ function App() {
                 path="/"
                 element={<PrivateRoute component={<HomePage />} />}
               />
-              <Route path="/:profile" element={<ProfilePage />} />
+              <Route
+                path="/:profile"
+                element={<PrivateRoute component={<ProfilePage />} />}
+              />
             </Routes>
           </Suspense>
         </Router>

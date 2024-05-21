@@ -1,7 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { currentUserAtom, sidebarToggle } from "../states/atom";
 import Twitterlogo from "./Twitterlogo";
-import { Link } from "react-router-dom";
 import { AiOutlineSetting } from "react-icons/ai";
 
 const HomePageMiddleSection = () => {
@@ -11,7 +10,7 @@ const HomePageMiddleSection = () => {
   return (
     <>
       <div className="w-full border-r border-grey">
-        <div className="flex justify-between px-4 py-2">
+        <div className="md:hidden flex justify-between px-4 py-2">
           <button onClick={() => setShowSidebar((prev) => !prev)}>
             <img
               className="w-8 rounded-full"
