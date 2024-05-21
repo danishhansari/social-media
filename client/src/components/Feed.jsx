@@ -28,7 +28,6 @@ const Feed = () => {
 
   return (
     <>
-      <div>Tweets</div>
       <div>
         {tweets.map((tweet) => {
           console.log(tweet?.user?.profile_img);

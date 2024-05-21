@@ -1,10 +1,9 @@
 import { GoHome } from "react-icons/go";
 import { IoNotificationsOutline, IoSearchOutline } from "react-icons/io5";
 import { AiOutlineMessage } from "react-icons/ai";
-import { RiOpenaiFill } from "react-icons/ri";
 import { MdOutlineBookmarkBorder } from "react-icons/md";
 import { FaXTwitter, FaRegUser } from "react-icons/fa6";
-import { CiCircleMore, CiLogout } from "react-icons/ci";
+import { CiLogout } from "react-icons/ci";
 import { currentUserAtom, sidebarToggle } from "../states/atom.js";
 import { useRecoilState } from "recoil";
 import { useRef } from "react";
@@ -21,19 +20,16 @@ const routes = [
     route: "/notification",
   },
   { icon: <AiOutlineMessage size={30} />, name: "Message", route: "/message" },
-  { icon: <RiOpenaiFill size={30} />, name: "Grok", route: "/grok" },
   {
     icon: <MdOutlineBookmarkBorder size={30} />,
     name: "Bookmark",
     route: "/bookmark",
   },
-  { icon: <FaXTwitter size={30} />, name: "Premium", route: "/premium" },
   {
     icon: <FaRegUser size={30} />,
     name: "Profile",
     route: "",
   },
-  { icon: <CiCircleMore size={30} />, name: "More", route: "/more" },
 ];
 
 const SideNav = () => {
@@ -91,7 +87,7 @@ const SideNav = () => {
         <button className="bg-primary text-white w-[80%] md:w-full py-4 px-4 rounded-full font-semibold text-xl hover:bg-primary/80 mt-2">
           Post
         </button>
-        <div className="flex items-center justify-between mt-[30%] md:mt-[65%] w-full">
+        <div className="flex items-center justify-between w-full relative h-full bottom-12">
           <Link to={`/${userState.username}`}>
             <div className="flex items-center gap-4 justify-between px-3">
               <img

@@ -38,8 +38,7 @@ const TweetInput = () => {
             },
           }
         )
-        .then(({ data }) => {
-          console.log(data);
+        .then(() => {
           setInput("");
           return toast.success("tweet successfully");
         })
