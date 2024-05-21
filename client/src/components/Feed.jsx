@@ -1,17 +1,16 @@
 import axios from "axios";
-import { currentUserAtom } from "../states/atom";
-import { useRecoilValue } from "recoil";
+import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import Tweet from "./Tweet";
 const Feed = () => {
-  const currentUser = useRecoilValue(currentUserAtom);
+  const token = Cookies.get("token");
   const [tweets, setTweets] = useState([]);
 
   const getTweets = () => {
     axios
       .get(`${import.meta.env.VITE_SERVER}/user/tweet`, {
         headers: {
-          Authorization: `Bearer ${currentUser.accessToken}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then(({ data }) => {

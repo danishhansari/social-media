@@ -4,10 +4,12 @@ import { useState } from "react";
 import { z } from "zod";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const TweetInput = () => {
   const currentUser = useRecoilValue(currentUserAtom);
   const [input, setInput] = useState("");
+  const token = Cookies.get("token");
 
   const handleInput = (e) => {
     e.preventDefault();
@@ -34,7 +36,7 @@ const TweetInput = () => {
           },
           {
             headers: {
-              Authorization: `Bearer ${currentUser.accessToken}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         )
