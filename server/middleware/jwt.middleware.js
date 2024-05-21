@@ -7,6 +7,7 @@ const verifyJWT = async (req, res, next) => {
   if (!decodedJWT) {
     res.status(403).json({ message: "Unauthorized access" });
   }
+  console.log(decodedJWT);
   req.userId = decodedJWT.id;
   next();
 };
