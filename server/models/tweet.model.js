@@ -2,18 +2,22 @@ import { model, Schema } from "mongoose";
 
 const tweetSchema = new Schema(
   {
-    owner: {
-      _id: String,
-      username: String,
-      name: String,
-      profilepic: String,
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
     tweet: {
       type: String,
       maxLimit: [256, "You cannot sent more than 256 character tweet"],
       required: true,
     },
-    replies: [],
+    replies: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Tweet",
+      },
+    ],
     like: {
       type: Number,
       default: 0,
