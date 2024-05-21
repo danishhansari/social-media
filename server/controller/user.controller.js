@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import Bookmark from "../models/bookmark.model.js";
 import { z } from "zod";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -188,7 +189,7 @@ const userProfile = async (req, res) => {
 const searchUserProfile = async (req, res) => {
   console.log("this is fun got call");
   const { username } = req.body;
-  const users = await User.find({
+  User.find({
     username: { $regex: username, $options: "i" },
   })
     .select(
@@ -205,7 +206,7 @@ const searchUserProfile = async (req, res) => {
 };
 
 const newUserProfile = async (req, res) => {
-  const users = await User.find({})
+  User.find({})
     .sort({ createdAt: -1 })
     .select(
       "-password -accessToken -location -bio -banner -dob -following -follower -googleAuth -website -createdAt -updatedAt -email -post"
@@ -220,6 +221,34 @@ const newUserProfile = async (req, res) => {
     });
 };
 
+const bookmarkTweet = async (req, res) => {
+  const { userId } = req;
+  const { tweetID } = req.body;
+  Bookmark.create({
+    user: userId,
+    tweet: tweetID,
+  })
+    .then((data) => {
+      return res.status(200).json(data);
+    })
+    .catch((err) => {
+      return res.status(404).json(err.message);
+    });
+};
+
+const getBookmark = async (req, res) => {
+  const userId = req.userId;
+  console.log(userId);
+  const userBookmark = await Bookmark.find({ user: userId })
+    .populate("tweet")
+    .populate(
+      "user",
+      "-accessToken -password -location -website -bio -banner -dob -email -follower -following -googleAuth -post -createdAt -updatedAt"
+    )
+    .lean();
+  return res.status(200).json({ userBookmark });
+};
+
 export {
   registerUser,
   loginUser,
@@ -228,4 +257,6 @@ export {
   userProfile,
   searchUserProfile,
   newUserProfile,
+  bookmarkTweet,
+  getBookmark,
 };
