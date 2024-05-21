@@ -15,3 +15,7 @@ h5,
 h6 {
   font-family: "Gelasio", serif;
 }
+
+#tweet {
+  resize: none;
+}

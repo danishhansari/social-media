@@ -2,7 +2,7 @@ import Twitterlogo from "./Twitterlogo";
 
 const Loader = () => {
   return (
-    <div className="bg-white flex h-screen items-center justify-center">
+    <div className="fixed w-full bg-white flex h-screen items-center justify-center">
       <div className="w-24">
         <Twitterlogo />
       </div>

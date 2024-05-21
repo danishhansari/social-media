@@ -2,6 +2,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { currentUserAtom, sidebarToggle } from "../states/atom";
 import Twitterlogo from "./Twitterlogo";
 import { AiOutlineSetting } from "react-icons/ai";
+import TweetInput from "./TweetInput";
 
 const HomePageMiddleSection = () => {
   const currentUser = useRecoilValue(currentUserAtom);
@@ -29,6 +30,7 @@ const HomePageMiddleSection = () => {
             Following
           </button>
         </div>
+      <TweetInput />
       </div>
     </>
   );
