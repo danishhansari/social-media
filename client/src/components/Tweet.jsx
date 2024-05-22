@@ -2,8 +2,7 @@ import { Link } from "react-router-dom";
 import { GoHeart } from "react-icons/go";
 import { CiBookmark } from "react-icons/ci";
 import { FaRegComment } from "react-icons/fa6";
-import { currentUserAtom } from "../states/atom";
-import { useRecoilValue } from "recoil";
+import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import axios from "axios";
 
@@ -17,8 +16,8 @@ const Tweet = ({
   like,
   bookmark,
 }) => {
-  const currentUser = useRecoilValue(currentUserAtom);
   const handleBookmark = (id) => {
+    const token = Cookies.get("token");
     console.log(id);
     axios
       .post(
@@ -26,7 +25,7 @@ const Tweet = ({
         { tweetID: id },
         {
           headers: {
-            Authorization: `Bearer ${currentUser.accessToken}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       )

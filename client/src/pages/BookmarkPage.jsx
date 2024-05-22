@@ -52,7 +52,7 @@ const BookmarkPage = () => {
           </div>
           {loading && <SmallLoader className="w-8 mt-4 mx-auto" />}
 
-          {!bookmarks.length && (
+          {!loading && !bookmarks.length && (
             <p className="text-center text-grey mt-4">No Bookmark you have</p>
           )}
 
