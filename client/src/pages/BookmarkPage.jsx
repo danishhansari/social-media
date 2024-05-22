@@ -8,6 +8,8 @@ import { currentUserAtom } from "../states/atom";
 import SmallLoader from "../components/SmallLoader";
 import toast, { Toaster } from "react-hot-toast";
 import Tweet from "../components/Tweet";
+import { FaArrowLeft } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const BookmarkPage = () => {
   const token = Cookies.get("token");
@@ -46,10 +48,21 @@ const BookmarkPage = () => {
         <Sidebar />
 
         <div className="w-full border-r border-grey">
-          <div className="border-b border-grey sticky top-0 z-40 bg-white/30 backdrop-blur-md px-4">
-            <h1 className="text-2xl">Bookmark</h1>
-            <p className="text-grey text-md">@{currentUser.username}</p>
+          <div className="border-b border-grey bg-white/30 backdrop-blur-md flex items-center px-4 gap-6">
+            <Link
+              to="/"
+              className="p-2 rounded-full hover:bg-grey/20 transition-colors"
+            >
+              <FaArrowLeft size={20} />
+            </Link>
+            <div>
+              <p className="text-black font-semibold">Bookmark</p>
+              <p className="text-md text-grey font-medium">
+                @{currentUser.username}
+              </p>
+            </div>
           </div>
+
           {loading && <SmallLoader className="w-8 mt-4 mx-auto" />}
 
           {!loading && !bookmarks.length && (
