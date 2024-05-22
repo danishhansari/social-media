@@ -1,5 +1,4 @@
 import User from "../models/user.model.js";
-import Bookmark from "../models/bookmark.model.js";
 import { z } from "zod";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -221,46 +220,6 @@ const newUserProfile = async (req, res) => {
     });
 };
 
-const bookmarkTweet = async (req, res) => {
-  const { userId } = req;
-  const { tweetID } = req.body;
-
-  try {
-    const existingBookmark = await Bookmark.findOne({
-      user: userId,
-      tweet: tweetID,
-    });
-    if (!existingBookmark) {
-      await Bookmark.create({
-        user: userId,
-        tweet: tweetID,
-      });
-      return res.status(200).json({ message: "Bookmark added" });
-    }
-    await Bookmark.findOneAndDelete({ user: userId, tweet: tweetID });
-    return res.status(200).json({ message: "Bookmark Removed" });
-  } catch (error) {
-    return res.status(404).json(error.message);
-  }
-};
-
-const getBookmark = async (req, res) => {
-  const userId = req.userId;
-  console.log(userId);
-  const userBookmark = await Bookmark.find({ user: userId })
-    .populate({
-      path: "tweet",
-      populate: {
-        path: "user",
-        select:
-          "-password -accessToken -location -bio -banner -dob -following -follower -googleAuth -website -createdAt -updatedAt -email -post",
-      },
-    })
-    .select("-user -_id")
-    .lean();
-  return res.status(200).json(userBookmark);
-};
-
 export {
   registerUser,
   loginUser,
@@ -269,6 +228,4 @@ export {
   userProfile,
   searchUserProfile,
   newUserProfile,
-  bookmarkTweet,
-  getBookmark,
 };

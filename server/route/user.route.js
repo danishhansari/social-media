@@ -6,11 +6,14 @@ import {
   getCurrentUser,
   searchUserProfile,
   newUserProfile,
-  bookmarkTweet,
-  getBookmark,
 } from "../controller/user.controller.js";
 import { verifyJWT } from "../middleware/jwt.middleware.js";
-import { getTweet, postTweet } from "../controller/tweet.controller.js";
+import {
+  getTweet,
+  postTweet,
+  bookmarkTweet,
+  getBookmark,
+} from "../controller/tweet.controller.js";
 
 const user = Router();
 
