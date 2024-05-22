@@ -28,6 +28,6 @@ user.get("/tweet", getTweet);
 
 // Bookmark
 user.post("/bookmark", verifyJWT, bookmarkTweet);
-user.post("/get-bookmark", verifyJWT, getBookmark);
+user.get("/get-bookmark", verifyJWT, getBookmark);
 
 export default user;

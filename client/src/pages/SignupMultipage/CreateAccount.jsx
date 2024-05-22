@@ -30,8 +30,6 @@ const CreateAccount = ({ setCurrentPage, setShowSignupPortal }) => {
   const [input, setInput] = useRecoilState(signupAtom);
 
   const handleSubmit = () => {
-    console.log(input);
-
     if (
       !input.name ||
       !input.email ||
@@ -182,7 +180,7 @@ const CreateAccount = ({ setCurrentPage, setShowSignupPortal }) => {
 
         <button
           className="bg-black py-3 w-full rounded-full text-center text-white font-medium mt-8 hover:bg-black/90 disabled:bg-black/40 "
-            onClick={handleSubmit}
+          onClick={handleSubmit}
         >
           Next
         </button>

@@ -23,7 +23,7 @@ const routes = [
   {
     icon: <MdOutlineBookmarkBorder size={30} />,
     name: "Bookmark",
-    route: "/bookmark",
+    route: "/i/bookmark",
   },
   {
     icon: <FaRegUser size={30} />,

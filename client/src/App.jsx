@@ -2,10 +2,11 @@ import { lazy, Suspense } from "react";
 import Loader from "./components/Loader";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import PrivateRoute from "./components/PrivateRoute";
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const HomePage = lazy(() => import("./pages/HomePage"));
+const BookmarkPage = lazy(() => import("./pages/BookmarkPage"));
 import ProfilePage from "./pages/ProfilePage";
-import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
               <Route
                 path="/"
                 element={<PrivateRoute component={<HomePage />} />}
+              />
+              <Route
+                path="/i/bookmark"
+                element={<PrivateRoute component={<BookmarkPage />} />}
               />
               <Route
                 path="/:profile"

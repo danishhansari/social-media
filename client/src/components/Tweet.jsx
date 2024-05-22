@@ -2,8 +2,13 @@ import { Link } from "react-router-dom";
 import { GoHeart } from "react-icons/go";
 import { CiBookmark } from "react-icons/ci";
 import { FaRegComment } from "react-icons/fa6";
+import { currentUserAtom } from "../states/atom";
+import { useRecoilValue } from "recoil";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const Tweet = ({
+  id,
   profile_img,
   username,
   name,
@@ -12,6 +17,27 @@ const Tweet = ({
   like,
   bookmark,
 }) => {
+  const currentUser = useRecoilValue(currentUserAtom);
+  const handleBookmark = (id) => {
+    console.log(id);
+    axios
+      .post(
+        `${import.meta.env.VITE_SERVER}/user/bookmark`,
+        { tweetID: id },
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser.accessToken}`,
+          },
+        }
+      )
+      .then(({ data }) => {
+        toast.success(data.message);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <div className="flex items-start w-full gap-2 p-2 border-t border-lightgrey">
@@ -37,10 +63,13 @@ const Tweet = ({
               <GoHeart className="text-black" />
               {like}
             </p>
-            <p className="flex items-center gap-1 text-grey text-md">
+            <button
+              className="flex items-center gap-1 text-grey text-md hover:bg-lightgrey p-1 rounded-full"
+              onClick={() => handleBookmark(id)}
+            >
               <CiBookmark className="text-black " />
               {bookmark}
-            </p>
+            </button>
           </div>
         </div>
       </div>

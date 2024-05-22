@@ -8,7 +8,6 @@ import Tweets from "./Feed";
 const HomePageMiddleSection = () => {
   const currentUser = useRecoilValue(currentUserAtom);
   const setShowSidebar = useSetRecoilState(sidebarToggle);
-  console.log(currentUser);
   return (
     <>
       <div className="w-full border-r border-grey">
@@ -25,7 +24,7 @@ const HomePageMiddleSection = () => {
           </div>
           <AiOutlineSetting size={20} />
         </div>
-        <div className="h-12 flex w-full justify-around border-b border-grey">
+        <div className="h-12 flex w-full justify-around border-b border-grey sticky top-0 z-40 bg-white/30 backdrop-blur-md">
           <button className="border-b-4 h-full border-primary">For you</button>
           <button className="border-b-4 h-full border-primary">
             Following

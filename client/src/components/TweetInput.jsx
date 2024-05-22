@@ -20,7 +20,6 @@ const TweetInput = () => {
   };
 
   const submitTweet = (e) => {
-    console.log(input);
     e.target.setAttribute("disabled", true);
     if (!input.length) {
       return toast.error("tweet cannot be empty");

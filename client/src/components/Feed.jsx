@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import Tweet from "./Tweet";
+
 const Feed = () => {
   const token = Cookies.get("token");
   const [tweets, setTweets] = useState([]);
@@ -15,6 +16,7 @@ const Feed = () => {
       })
       .then(({ data }) => {
         setTweets([...data]);
+        console.log(tweets);
       })
       .catch((err) => {
         console.log(err.message);
@@ -28,11 +30,7 @@ const Feed = () => {
   return (
     <>
       <div>
-        {tweets.map((tweet) => {
-          console.log(tweet?.user?.profile_img);
-          console.log(tweet?.user?.username);
-        })}
-        {Array.isArray(tweets) &&
+        {tweets &&
           tweets.map((tweet) => {
             return (
               <Tweet
@@ -44,6 +42,7 @@ const Feed = () => {
                 replies={tweet.replies}
                 like={tweet.like}
                 bookmark={tweet.bookmark}
+                id={tweet._id}
               />
             );
           })}

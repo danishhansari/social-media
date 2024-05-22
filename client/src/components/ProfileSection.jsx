@@ -26,7 +26,6 @@ const ProfileSection = () => {
     axios
       .get(`${import.meta.env.VITE_SERVER}/${username}`)
       .then(({ data: { ...data } }) => {
-        console.log("User Profile", data);
         setUser({ ...data });
       })
       .catch((err) => {
