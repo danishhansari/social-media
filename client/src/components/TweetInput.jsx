@@ -22,6 +22,7 @@ const TweetInput = () => {
   const submitTweet = (e) => {
     e.target.setAttribute("disabled", true);
     if (!input.length) {
+      e.target.removeAttribute("disabled");
       return toast.error("tweet cannot be empty");
     }
     const tweetSchema = z.string().min(1).max(256);
