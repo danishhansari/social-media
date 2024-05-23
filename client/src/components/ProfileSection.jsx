@@ -9,7 +9,7 @@ import {
 } from "react-icons/md";
 import { FaLink, FaArrowLeft } from "react-icons/fa6";
 import { BsBalloon } from "react-icons/bs";
-import SmallLoader from "./SmallLoader";
+import SmallLoader from "./loading/SmallLoader";
 import { getFullYear, getMonthAndYear } from "../common";
 import { useRecoilState } from "recoil";
 import { currentUserAtom } from "../states/atom";

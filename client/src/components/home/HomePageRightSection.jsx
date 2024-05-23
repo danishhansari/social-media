@@ -1,8 +1,8 @@
 import axios from "axios";
 import { lazy, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
-const ProfileFlatCard = lazy(() => import("./ProfileFlatCard"));
-const WhoToFollow = lazy(() => import("./WhoToFollow"));
+const ProfileFlatCard = lazy(() => import("../ProfileFlatCard"));
+const WhoToFollow = lazy(() => import("../WhoToFollow"));
 
 const HomePageRightSection = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -37,6 +37,7 @@ const HomePageRightSection = () => {
           className="pl-10 py-3 w-full rounded-full group bg-lightgrey text-xl  border-primary focus:border-2 focus:outline-none"
           placeholder="Search"
           onChange={handleInput}
+          defaultValue={searchInput}
         />
         <IoIosSearch
           size={20}

@@ -1,11 +1,11 @@
 import Sidebar from "../components/Sidebar";
-import HomePageRightSection from "../components/HomePageRightSection";
+import HomePageRightSection from "../components/home/HomePageRightSection";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useRecoilValue } from "recoil";
 import { currentUserAtom } from "../states/atom";
-import SmallLoader from "../components/SmallLoader";
+import SmallLoader from "../components/loading/SmallLoader";
 import toast, { Toaster } from "react-hot-toast";
 import Tweet from "../components/Tweet";
 import { FaArrowLeft } from "react-icons/fa6";

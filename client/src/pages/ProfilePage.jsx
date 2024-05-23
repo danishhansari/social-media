@@ -3,7 +3,7 @@ const Sidebar = lazy(() => import("../components/Sidebar"));
 const ProfileSection = lazy(() => import("../components/ProfileSection"));
 import { Toaster } from "react-hot-toast";
 const HomePageRightSection = lazy(() =>
-  import("../components/HomePageRightSection")
+  import("../components/home/HomePageRightSection")
 );
 
 const ProfilePage = () => {

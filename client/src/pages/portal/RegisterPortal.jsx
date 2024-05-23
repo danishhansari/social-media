@@ -1,7 +1,7 @@
 import { lazy, Suspense, useState } from "react";
 import { createPortal } from "react-dom";
 import { Toaster } from "react-hot-toast";
-import SmallLoader from "../../components/SmallLoader";
+import SmallLoader from "../../components/loading/SmallLoader";
 const CreateAccount = lazy(() => import("../SignupMultipage/CreateAccount"));
 const CreateAccountPassword = lazy(() =>
   import("../SignupMultipage/CreateAccountPassword")

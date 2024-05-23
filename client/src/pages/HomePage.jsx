@@ -1,10 +1,10 @@
 import { lazy } from "react";
 const Sidebar = lazy(() => import("../components/Sidebar"));
 const HomePageMiddleSection = lazy(() =>
-  import("../components/HomePageMiddleSection")
+  import("../components/home/HomePageMiddleSection")
 );
 const HomePageRightSection = lazy(() =>
-  import("../components/HomePageRightSection")
+  import("../components/home/HomePageRightSection")
 );
 
 const HomePage = () => {

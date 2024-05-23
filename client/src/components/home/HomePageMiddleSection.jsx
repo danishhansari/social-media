@@ -1,9 +1,9 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { currentUserAtom, sidebarToggle } from "../states/atom";
-import Twitterlogo from "./Twitterlogo";
+import { currentUserAtom, sidebarToggle } from "../../states/atom";
+import Twitterlogo from "../Twitterlogo";
 import { AiOutlineSetting } from "react-icons/ai";
-import TweetInput from "./TweetInput";
-import Tweets from "./Feed";
+import TweetInput from "../TweetInput";
+import Tweets from "../Feed";
 
 const HomePageMiddleSection = () => {
   const currentUser = useRecoilValue(currentUserAtom);

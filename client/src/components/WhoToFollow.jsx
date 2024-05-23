@@ -1,4 +1,4 @@
-import SmallLoader from "./SmallLoader";
+import SmallLoader from "./loading/SmallLoader";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ProfileFlatCard from "./ProfileFlatCard";

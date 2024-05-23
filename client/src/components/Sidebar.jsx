@@ -32,7 +32,7 @@ const routes = [
   },
 ];
 
-const SideNav = () => {
+const Sidebar = () => {
   const location = useLocation();
   const [showSidebar, setShowSidebar] = useRecoilState(sidebarToggle);
   const [userState, setUserState] = useRecoilState(currentUserAtom);
@@ -113,4 +113,4 @@ const SideNav = () => {
   );
 };
 
-export default SideNav;
+export default Sidebar;

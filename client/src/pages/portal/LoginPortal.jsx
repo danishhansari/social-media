@@ -2,7 +2,7 @@ import { createPortal } from "react-dom";
 import { useState, lazy, Suspense } from "react";
 const Username = lazy(() => import("../SigninMultipage/Username"));
 const Password = lazy(() => import("../SigninMultipage/Password"));
-import SmallLoader from "../../components/SmallLoader";
+import SmallLoader from "../../components/loading/SmallLoader";
 import { Toaster } from "react-hot-toast";
 
 const LoginPortal = ({ setShowSignInPortal }) => {

@@ -1,4 +1,4 @@
-import Twitterlogo from "./Twitterlogo";
+import Twitterlogo from "../Twitterlogo";
 
 const Loader = () => {
   return (

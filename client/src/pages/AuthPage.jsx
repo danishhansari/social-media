@@ -1,7 +1,7 @@
 import Twitterlogo from "../components/Twitterlogo";
 import { useState, lazy, Suspense, useEffect } from "react";
 import SignInGoogle from "../components/SignInGoogle";
-import SmallLoader from "../components/SmallLoader";
+import SmallLoader from "../components/loading/SmallLoader";
 import Footer from "../components/Footer";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
