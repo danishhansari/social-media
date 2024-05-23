@@ -181,7 +181,9 @@ const getCurrentUser = async (req, res) => {
 
 const userProfile = async (req, res) => {
   const { username } = req.params;
-  const user = await User.findOne({ username }).select("-password");
+  const user = await User.findOne({ username }).select(
+    "-password -accessToken -googleAuth"
+  );
   if (!user) return res.status(404).json({ message: "User not found" });
   return res.status(200).json(user);
 };
@@ -236,7 +238,36 @@ const getUserTweet = async (req, res) => {
 const followUser = async (req, res) => {
   const userId = req.userId;
   const { toFollow } = req.body;
-  console.log(userId);
+
+  try {
+    const currentUser = await User.findById(userId);
+    const targetUser = await User.findById(toFollow);
+
+    if (!currentUser || !targetUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const isAlreadyFollowing = currentUser.following.includes(toFollow);
+
+    if (!isAlreadyFollowing) {
+      currentUser.following.push(toFollow);
+      targetUser.follower.push(userId);
+    } else {
+      currentUser.following = currentUser.following.filter(
+        (id) => id != toFollow
+      );
+      targetUser.follower = targetUser.follower.filter((id) => id != userId);
+    }
+
+    await currentUser.save();
+    await targetUser.save();
+
+    return res
+      .status(200)
+      .json({ message: isAlreadyFollowing ? "Unfollow" : "follow" });
+  } catch (err) {
+    return res.status(500).json(err.message);
+  }
 };
 
 export {
@@ -248,5 +279,5 @@ export {
   searchUserProfile,
   newUserProfile,
   getUserTweet,
-  followUser
+  followUser,
 };

@@ -11,7 +11,7 @@ import { FaLink, FaArrowLeft } from "react-icons/fa6";
 import { BsBalloon } from "react-icons/bs";
 import SmallLoader from "./SmallLoader";
 import { getFullYear, getMonthAndYear } from "../common";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { currentUserAtom } from "../states/atom";
 import { AiOutlineMessage } from "react-icons/ai";
 import Tweet from "./Tweet";
@@ -22,13 +22,12 @@ const ProfileSection = () => {
   const [profileLoading, setProfileLoading] = useState(true);
   const [userTweetLoading, setUserTweetLoading] = useState(true);
   const [userTweet, setUserTweet] = useState([]);
-  const currentUser = useRecoilValue(currentUserAtom);
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);
 
   const fetchUserTweet = (id) => {
     axios
       .get(`${import.meta.env.VITE_SERVER}/user/${id}/get-user-tweet`)
       .then(({ data }) => {
-        console.log(data);
         setUserTweet(data);
       })
       .catch((err) => {
@@ -45,6 +44,7 @@ const ProfileSection = () => {
       .get(`${import.meta.env.VITE_SERVER}/${username}`)
       .then(({ data: { ...data } }) => {
         setUser({ ...data });
+        console.log(data);
         fetchUserTweet(data._id);
       })
       .catch((err) => {
@@ -53,6 +53,47 @@ const ProfileSection = () => {
       })
       .finally(() => {
         setProfileLoading(false);
+      });
+  };
+
+  const followUser = (id) => {
+    axios
+      .patch(
+        `${import.meta.env.VITE_SERVER}/user/follow`,
+        {
+          toFollow: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser.accessToken}`,
+          },
+        }
+      )
+      .then(({ data }) => {
+        const isFollowing = user.follower.includes(id);
+        console.log(isFollowing);
+        setUser((prev) => {
+          return {
+            ...prev,
+            follower: isFollowing
+              ? prev.follower.filter((followerId) => followerId !== id)
+              : [...prev.follower, id],
+          };
+        });
+
+        setCurrentUser((prev) => {
+          return {
+            ...prev,
+            following: isFollowing
+              ? prev.following.filter((followerId) => followerId !== id)
+              : [...prev.following, id],
+          };
+        });
+
+        toast.success(data.message);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -89,7 +130,7 @@ const ProfileSection = () => {
             alt={`${user.name} profile image`}
           />
           <div className="mt-4">
-            {currentUser.accessToken === user.accessToken ? (
+            {currentUser.username === user.username ? (
               <button className="rounded-full border border-grey px-4 py-1">
                 Edit Profile
               </button>
@@ -98,7 +139,10 @@ const ProfileSection = () => {
                 <button className="hover:bg-lightgrey p-2 rounded-full">
                   <AiOutlineMessage size={20} />
                 </button>
-                <button className="bg-black text-white px-4 rounded-full hover:bg-black/70 transition-colors">
+                <button
+                  className="bg-black text-white px-4 rounded-full hover:bg-black/70 transition-colors"
+                  onClick={() => followUser(user._id)}
+                >
                   Follow
                 </button>
               </div>
@@ -159,7 +203,7 @@ const ProfileSection = () => {
         </div>
         {userTweetLoading && <SmallLoader className="mx-auto mt-8 w-8" />}
 
-        {!userTweet.length && (
+        {!userTweetLoading && !userTweet.length && (
           <p className="text-center text-grey mt-4">
             {user.name} Don't have any tweet
           </p>

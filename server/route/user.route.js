@@ -37,6 +37,6 @@ user.post("/bookmark", verifyJWT, bookmarkTweet);
 user.get("/get-bookmark", verifyJWT, getBookmark);
 
 // Follow
-user.post("/follow", verifyJWT, followUser);
+user.patch("/follow", verifyJWT, followUser);
 
 export default user;

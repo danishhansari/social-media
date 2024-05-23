@@ -87,12 +87,14 @@ const userSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "User",
+        required: true,
       },
     ],
     follower: [
       {
         type: Schema.Types.ObjectId,
         ref: "User",
+        required: true,
       },
     ],
     post: [],
