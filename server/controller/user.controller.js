@@ -248,4 +248,5 @@ export {
   searchUserProfile,
   newUserProfile,
   getUserTweet,
+  followUser
 };
