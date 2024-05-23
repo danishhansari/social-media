@@ -83,8 +83,18 @@ const userSchema = new Schema(
     location: String,
     website: String,
     accessToken: String,
-    following: [],
-    follower: [],
+    following: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    follower: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     post: [],
   },
   { timestamps: true }

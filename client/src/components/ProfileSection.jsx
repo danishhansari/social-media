@@ -157,24 +157,30 @@ const ProfileSection = () => {
             </p>
           </div>
         </div>
-
         {userTweetLoading && <SmallLoader className="mx-auto mt-8 w-8" />}
 
-        {userTweet.map((tweet) => {
-          return (
-            <Tweet
-              key={tweet._id}
-              tweet={tweet.tweet}
-              profile_img={tweet.user.profile_img}
-              username={tweet.user.username}
-              name={tweet.user.name}
-              replies={tweet.replies}
-              like={tweet.like}
-              bookmark={tweet.bookmark}
-              id={tweet._id}
-            />
-          );
-        })}
+        {!userTweet.length && (
+          <p className="text-center text-grey mt-4">
+            {user.name} Don't have any tweet
+          </p>
+        )}
+
+        {userTweet &&
+          userTweet.map((tweet) => {
+            return (
+              <Tweet
+                key={tweet._id}
+                tweet={tweet.tweet}
+                profile_img={tweet.user.profile_img}
+                username={tweet.user.username}
+                name={tweet.user.name}
+                replies={tweet.replies}
+                like={tweet.like}
+                bookmark={tweet.bookmark}
+                id={tweet._id}
+              />
+            );
+          })}
       </div>
     </>
   );

@@ -7,6 +7,7 @@ import {
   searchUserProfile,
   newUserProfile,
   getUserTweet,
+  followUser,
 } from "../controller/user.controller.js";
 import { verifyJWT } from "../middleware/jwt.middleware.js";
 import {
@@ -34,5 +35,8 @@ user.get("/:id/get-user-tweet", getUserTweet);
 // Bookmark
 user.post("/bookmark", verifyJWT, bookmarkTweet);
 user.get("/get-bookmark", verifyJWT, getBookmark);
+
+// Follow
+user.post("/follow", verifyJWT, followUser);
 
 export default user;

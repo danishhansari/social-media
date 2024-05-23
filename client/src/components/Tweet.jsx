@@ -52,7 +52,7 @@ const Tweet = ({
             <Link to={`/${username}`} className="font-semibold">
               {name}
             </Link>
-            <span className="text-grey ml-1"> {username}</span>
+            <span className="text-grey ml-1"> @{username}</span>
           </div>
           <p className="tweet w-full">{tweet}</p>
           <div className="flex px-4 py-1 justify-between items-center w-full">

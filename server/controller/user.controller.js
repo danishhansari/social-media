@@ -233,6 +233,12 @@ const getUserTweet = async (req, res) => {
   return res.status(200).json(tweet);
 };
 
+const followUser = async (req, res) => {
+  const userId = req.userId;
+  const { toFollow } = req.body;
+  console.log(userId);
+};
+
 export {
   registerUser,
   loginUser,
