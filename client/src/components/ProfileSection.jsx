@@ -121,7 +121,7 @@ const ProfileSection = () => {
           </div>
         </div>
 
-        <img src={user.banner} alt="" className="w-full max-h-[200px]" />
+        <img src={user.banner} alt="" className="w-full max-h-[150px]" />
 
         <div className="flex justify-between items-center px-4 md:px-6">
           <img
