@@ -15,6 +15,7 @@ import { useRecoilState } from "recoil";
 import { currentUserAtom } from "../states/atom";
 import { AiOutlineMessage } from "react-icons/ai";
 import Tweet from "./Tweet";
+import Cookies from "js-cookie";
 
 const ProfileSection = () => {
   const { profile } = useParams();
@@ -23,6 +24,7 @@ const ProfileSection = () => {
   const [userTweetLoading, setUserTweetLoading] = useState(true);
   const [userTweet, setUserTweet] = useState([]);
   const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);
+  const token = Cookies.get("token");
 
   const fetchUserTweet = (id) => {
     axios
@@ -65,7 +67,7 @@ const ProfileSection = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${currentUser.accessToken}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       )
