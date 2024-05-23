@@ -9,31 +9,50 @@ import {
 } from "react-icons/md";
 import { FaLink, FaArrowLeft } from "react-icons/fa6";
 import { BsBalloon } from "react-icons/bs";
-import SmallLoader from "./BigLoader";
+import SmallLoader from "./SmallLoader";
 import { getFullYear, getMonthAndYear } from "../common";
 import { useRecoilValue } from "recoil";
 import { currentUserAtom } from "../states/atom";
 import { AiOutlineMessage } from "react-icons/ai";
+import Tweet from "./Tweet";
 
 const ProfileSection = () => {
   const { profile } = useParams();
   const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [profileLoading, setProfileLoading] = useState(true);
+  const [userTweetLoading, setUserTweetLoading] = useState(true);
+  const [userTweet, setUserTweet] = useState([]);
   const currentUser = useRecoilValue(currentUserAtom);
 
+  const fetchUserTweet = (id) => {
+    axios
+      .get(`${import.meta.env.VITE_SERVER}/user/${id}/get-user-tweet`)
+      .then(({ data }) => {
+        console.log(data);
+        setUserTweet(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setUserTweetLoading(false);
+      });
+  };
+
   const fetchUser = (username) => {
-    setLoading(true);
+    setProfileLoading(true);
     axios
       .get(`${import.meta.env.VITE_SERVER}/${username}`)
       .then(({ data: { ...data } }) => {
         setUser({ ...data });
+        fetchUserTweet(data._id);
       })
       .catch((err) => {
         console.log(err);
         return toast.error("User not found 404");
       })
       .finally(() => {
-        setLoading(false);
+        setProfileLoading(false);
       });
   };
 
@@ -43,7 +62,7 @@ const ProfileSection = () => {
 
   return (
     <>
-      {loading && <SmallLoader />}
+      {profileLoading && <SmallLoader />}
 
       <div className="w-full border-r border-grey">
         <div className="h-12 border-b border-grey flex items-center px-4 gap-6">
@@ -79,7 +98,9 @@ const ProfileSection = () => {
                 <button className="hover:bg-lightgrey p-2 rounded-full">
                   <AiOutlineMessage size={20} />
                 </button>
-                <button>Follow</button>
+                <button className="bg-black text-white px-4 rounded-full hover:bg-black/70 transition-colors">
+                  Follow
+                </button>
               </div>
             )}
           </div>
@@ -136,6 +157,24 @@ const ProfileSection = () => {
             </p>
           </div>
         </div>
+
+        {userTweetLoading && <SmallLoader className="mx-auto mt-8 w-8" />}
+
+        {userTweet.map((tweet) => {
+          return (
+            <Tweet
+              key={tweet._id}
+              tweet={tweet.tweet}
+              profile_img={tweet.user.profile_img}
+              username={tweet.user.username}
+              name={tweet.user.name}
+              replies={tweet.replies}
+              like={tweet.like}
+              bookmark={tweet.bookmark}
+              id={tweet._id}
+            />
+          );
+        })}
       </div>
     </>
   );

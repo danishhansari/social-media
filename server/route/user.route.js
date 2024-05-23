@@ -6,6 +6,7 @@ import {
   getCurrentUser,
   searchUserProfile,
   newUserProfile,
+  getUserTweet,
 } from "../controller/user.controller.js";
 import { verifyJWT } from "../middleware/jwt.middleware.js";
 import {
@@ -28,6 +29,7 @@ user.get("/get-current-user", verifyJWT, getCurrentUser); // current user
 
 user.post("/tweet", verifyJWT, postTweet);
 user.get("/tweet", getTweet);
+user.get("/:id/get-user-tweet", getUserTweet);
 
 // Bookmark
 user.post("/bookmark", verifyJWT, bookmarkTweet);

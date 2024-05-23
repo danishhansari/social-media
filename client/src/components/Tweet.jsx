@@ -40,11 +40,13 @@ const Tweet = ({
   return (
     <>
       <div className="flex items-start w-full gap-2 p-2 border-t border-lightgrey">
-        <img
-          className="w-12 rounded-full"
-          src={profile_img}
-          alt={`${username} profile pic`}
-        />
+        <Link to={`/${username}`}>
+          <img
+            className="w-12 rounded-full"
+            src={profile_img}
+            alt={`${username} profile pic`}
+          />
+        </Link>
         <div className="flex flex-col w-full">
           <div>
             <Link to={`/${username}`} className="font-semibold">

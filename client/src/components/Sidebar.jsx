@@ -84,10 +84,10 @@ const SideNav = () => {
             </Link>
           );
         })}
-        <button className="bg-primary text-white w-[80%] md:w-full py-4 px-4 rounded-full font-semibold text-xl hover:bg-primary/80 mt-2">
+        <button className="bg-primary text-white w-[80%] md:w-full py-4 px-4 rounded-full font-semibold text-xl hover:bg-primary/80 mt-6">
           Post
         </button>
-        <div className="flex items-center justify-between w-full relative h-full bottom-12">
+        <div className="flex items-center justify-between w-full relative h-full bottom-16">
           <Link to={`/${userState.username}`}>
             <div className="flex items-center gap-4 justify-between px-3">
               <img

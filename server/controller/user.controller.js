@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import Tweet from "../models/tweet.model.js";
 import { z } from "zod";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -220,6 +221,18 @@ const newUserProfile = async (req, res) => {
     });
 };
 
+const getUserTweet = async (req, res) => {
+  const { id } = req.params;
+  const tweet = await Tweet.find({ user: id })
+    .populate(
+      "user",
+      "-password -accessToken -location -bio -banner -dob -following -follower -googleAuth -website -createdAt -updatedAt -email -post -bio -follower -following -website"
+    )
+    .lean()
+    .limit(15);
+  return res.status(200).json(tweet);
+};
+
 export {
   registerUser,
   loginUser,
@@ -228,4 +241,5 @@ export {
   userProfile,
   searchUserProfile,
   newUserProfile,
+  getUserTweet,
 };
