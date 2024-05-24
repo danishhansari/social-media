@@ -29,7 +29,7 @@ function App() {
                 element={<PrivateRoute component={<BookmarkPage />} />}
               />
               <Route
-                path="/:username/status/:id"
+                path="/i/route"
                 element={<PrivateRoute component={<TweetPage />} />}
               />
               <Route

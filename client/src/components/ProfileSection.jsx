@@ -19,8 +19,9 @@ import Cookies from "js-cookie";
 
 const ProfileSection = () => {
   const { profile } = useParams();
-  const [user, setUser] = useState({});
+  console.log(profile);
   const [profileLoading, setProfileLoading] = useState(true);
+  const [user, setUser] = useState([]);
   const [userTweetLoading, setUserTweetLoading] = useState(true);
   const [userTweet, setUserTweet] = useState([]);
   const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);

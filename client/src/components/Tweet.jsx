@@ -2,9 +2,7 @@ import { Link } from "react-router-dom";
 import { GoHeart } from "react-icons/go";
 import { CiBookmark } from "react-icons/ci";
 import { FaRegComment } from "react-icons/fa6";
-import Cookies from "js-cookie";
-import toast from "react-hot-toast";
-import axios from "axios";
+import { handleBookmark } from "../utils/handleBookmark";
 
 const Tweet = ({
   id,
@@ -16,27 +14,6 @@ const Tweet = ({
   like,
   bookmark,
 }) => {
-  const handleBookmark = (id) => {
-    const token = Cookies.get("token");
-    console.log(id);
-    axios
-      .post(
-        `${import.meta.env.VITE_SERVER}/user/bookmark`,
-        { tweetID: id },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then(({ data }) => {
-        toast.success(data.message);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   return (
     <>
       <div className="flex items-start w-full gap-2 p-2 border-t border-lightgrey">
