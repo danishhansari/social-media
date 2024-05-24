@@ -47,6 +47,7 @@ const ProfileSection = () => {
       .get(`${import.meta.env.VITE_SERVER}/${username}`)
       .then(({ data: { ...data } }) => {
         setUser({ ...data });
+        console.log(user);
         fetchUserTweet(data._id);
       })
       .catch((err) => {
@@ -118,7 +119,7 @@ const ProfileSection = () => {
           <div>
             <p className="text-black font-semibold">{user.name}</p>
             <p className="text-sm text-grey font-medium">
-              {user.post.length + 1} posts
+              {user?.post?.length} posts
             </p>
           </div>
         </div>

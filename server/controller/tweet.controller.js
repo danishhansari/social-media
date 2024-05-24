@@ -1,5 +1,6 @@
 import Tweet from "../models/tweet.model.js";
 import Bookmark from "../models/bookmark.model.js";
+import User from "../models/user.model.js";
 import { z } from "zod";
 
 const tweetSchema = z.string().min(1).max(256).trim();
@@ -14,6 +15,12 @@ const postTweet = async (req, res) => {
       user: userID,
       tweet,
     });
+    await User.findOneAndUpdate(
+      ({ _id: userID },
+      {
+        $push: { post: uploadedTweet._id },
+      })
+    );
     return res.status(201).json({ message: "Success", uploadedTweet });
   } catch (error) {
     return res.status(403).json(error.message);
