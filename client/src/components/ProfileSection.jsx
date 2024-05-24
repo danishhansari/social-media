@@ -47,7 +47,6 @@ const ProfileSection = () => {
       .get(`${import.meta.env.VITE_SERVER}/${username}`)
       .then(({ data: { ...data } }) => {
         setUser({ ...data });
-        console.log(user);
         fetchUserTweet(data._id);
       })
       .catch((err) => {
