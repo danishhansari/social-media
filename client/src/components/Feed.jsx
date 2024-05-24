@@ -2,7 +2,9 @@ import Tweet from "./Tweet";
 import { useFetchTweet } from "../hooks/useFetchTweet";
 
 const Feed = () => {
+  
   const { tweets, error } = useFetchTweet();
+
   return (
     <>
       <div>

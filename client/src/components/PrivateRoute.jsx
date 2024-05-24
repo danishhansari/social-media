@@ -4,7 +4,7 @@ import { currentUserAtom } from "../states/atom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import Loader from "./loading/Loader";
+import SmallLoader from "./loading/SmallLoader";
 
 const PrivateRoute = ({ component }) => {
   const token = Cookies.get("token");
@@ -37,7 +37,7 @@ const PrivateRoute = ({ component }) => {
 
   return (
     <>
-      {loading && <Loader />}
+      {loading && <SmallLoader />}
       {component}
     </>
   );

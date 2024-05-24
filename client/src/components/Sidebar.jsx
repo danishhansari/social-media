@@ -28,7 +28,7 @@ const routes = [
   {
     icon: <FaRegUser size={30} />,
     name: "Profile",
-    route: "",
+    route: "/:profile",
   },
 ];
 
