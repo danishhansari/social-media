@@ -32,3 +32,8 @@ export const sidebarToggle = atom({
   key: "sidebarToggle",
   default: false,
 });
+
+export const tweetsAtom = atom({
+  key: "tweet",
+  default: [],
+});

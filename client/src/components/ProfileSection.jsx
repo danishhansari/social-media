@@ -207,7 +207,7 @@ const ProfileSection = () => {
 
         {!userTweetLoading && !userTweet.length && (
           <p className="text-center text-grey mt-4">
-            {user.name} Don't have any tweet
+            {user.name} Don`t have any tweet
           </p>
         )}
 

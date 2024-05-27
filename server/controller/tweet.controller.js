@@ -21,7 +21,12 @@ const postTweet = async (req, res) => {
         $push: { post: uploadedTweet._id },
       })
     );
-    return res.status(201).json({ message: "Success", uploadedTweet });
+
+    const postedTweet = await uploadedTweet.populate(
+      "user",
+      "-accessToken -password -location -website -bio -banner -dob -email -follower -following -googleAuth -post -createdAt -updatedAt"
+    );
+    return res.status(201).json({ message: "Success", postedTweet });
   } catch (error) {
     return res.status(403).json(error.message);
   }
@@ -29,12 +34,12 @@ const postTweet = async (req, res) => {
 
 const getTweet = async (req, res) => {
   const tweets = await Tweet.find({})
-    .sort({ createdAt: -1 })
     .populate(
       "user",
       "-accessToken -password -location -website -bio -banner -dob -email -follower -following -googleAuth -post -createdAt -updatedAt"
     )
     .limit(20)
+    .sort({ createdAt: -1 })
     .lean();
   return res.status(200).json(tweets);
 };

@@ -16,7 +16,7 @@ const Tweet = ({
 }) => {
   return (
     <>
-      <div className="flex items-start max-w-full gap-2 p-2 border-t border-lightgrey">
+      <div className="flex items-start w-full gap-2 p-2 border-t border-lightgrey">
         <Link to={`/${username}`}>
           <img
             className="w-12 rounded-full"

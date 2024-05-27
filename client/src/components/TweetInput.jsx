@@ -1,5 +1,5 @@
-import { useRecoilValue } from "recoil";
-import { currentUserAtom } from "../states/atom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { currentUserAtom, tweetsAtom } from "../states/atom";
 import { useState } from "react";
 import { z } from "zod";
 import toast, { Toaster } from "react-hot-toast";
@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 
 const TweetInput = () => {
   const currentUser = useRecoilValue(currentUserAtom);
+  const setTweets = useSetRecoilState(tweetsAtom);
   const [input, setInput] = useState("");
   const token = Cookies.get("token");
 
@@ -40,8 +41,9 @@ const TweetInput = () => {
             },
           }
         )
-        .then(() => {
+        .then(({ data: { postedTweet } }) => {
           setInput("");
+          setTweets((prev) => [...prev, postedTweet]);
           return toast.success("tweet successfully");
         })
         .catch((error) => {

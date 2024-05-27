@@ -4,6 +4,7 @@ import { useFetchNewUser } from "../hooks/useFetchNewUser";
 
 const WhoToFollow = () => {
   const { newUser, error, loading } = useFetchNewUser();
+
   return (
     <div className="bg-white border-lightgrey shadow-md border rounded-md text-black relative z-10 py-0 mt-8">
       <h1 className="text-2xl font-bold py-1 pl-4 mt-2">Who to Follow</h1>

@@ -7,7 +7,6 @@ const AuthPage = lazy(() => import("./pages/AuthPage"));
 const HomePage = lazy(() => import("./pages/HomePage"));
 const BookmarkPage = lazy(() => import("./pages/BookmarkPage"));
 import ProfilePage from "./pages/ProfilePage";
-import TweetPage from "./pages/TweetPage";
 
 function App() {
   return (
@@ -27,10 +26,6 @@ function App() {
               <Route
                 path="/i/bookmark"
                 element={<PrivateRoute component={<BookmarkPage />} />}
-              />
-              <Route
-                path="/i/route"
-                element={<PrivateRoute component={<TweetPage />} />}
               />
               <Route
                 path="/:profile"

@@ -231,7 +231,8 @@ const getUserTweet = async (req, res) => {
       "-password -accessToken -location -bio -banner -dob -following -follower -googleAuth -website -createdAt -updatedAt -email -post -bio -follower -following -website"
     )
     .lean()
-    .limit(15);
+    .limit(15)
+    .sort({ createdAt: -1 });
   return res.status(200).json(tweet);
 };
 

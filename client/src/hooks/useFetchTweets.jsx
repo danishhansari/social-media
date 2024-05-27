@@ -1,27 +1,27 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
+
 const useFetchTweet = () => {
   const [tweets, setTweets] = useState([]);
-  const [error, setError] = useState(null);
-  const token = Cookies.get("token");
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
+    setLoading(true);
     axios
-      .get(`${import.meta.env.VITE_SERVER}/user/tweet`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(`${import.meta.env.VITE_SERVER}/user/tweet`)
       .then(({ data }) => {
         setTweets([...data]);
-        console.log(tweets);
       })
       .catch((err) => {
         setError(err.message);
         console.log(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
-  return { tweets, error };
+  return { tweets, error, loading };
 };
 export { useFetchTweet };
