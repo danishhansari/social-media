@@ -3,10 +3,18 @@ import { lazy, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 const ProfileFlatCard = lazy(() => import("../ProfileFlatCard"));
 const WhoToFollow = lazy(() => import("../WhoToFollow"));
+import { useSetRecoilState } from "recoil";
+import { useFetchTweet } from "../../hooks/useFetchTweets";
+import { tweetsAtom } from "../../states/atom";
 
 const HomePageRightSection = () => {
   const [searchInput, setSearchInput] = useState("");
   const [users, setUsers] = useState([]);
+  
+  const { tweets: allTweet } = useFetchTweet();
+  const setTweets = useSetRecoilState(tweetsAtom);
+
+  setTweets(allTweet);
   let interval;
 
   const searchUser = async (input) => {

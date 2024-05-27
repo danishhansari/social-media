@@ -1,14 +1,12 @@
 import Tweet from "./Tweet";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { tweetsAtom } from "../states/atom";
 import { useFetchTweet } from "../hooks/useFetchTweets";
 import SmallLoader from "../components/loading/SmallLoader";
 
 const Feed = () => {
-  const { tweets: allTweet, error, loading } = useFetchTweet();
-  const [tweets, setTweets] = useRecoilState(tweetsAtom);
-  setTweets(allTweet);
-  console.log("this is setTweets", tweets);
+  const tweets = useRecoilValue(tweetsAtom);
+  const { loading, error } = useFetchTweet();
 
   return (
     <>

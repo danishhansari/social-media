@@ -43,7 +43,7 @@ const TweetInput = () => {
         )
         .then(({ data: { postedTweet } }) => {
           setInput("");
-          setTweets((prev) => [...prev, postedTweet]);
+          setTweets((prev) => [postedTweet, ...prev]);
           return toast.success("tweet successfully");
         })
         .catch((error) => {
