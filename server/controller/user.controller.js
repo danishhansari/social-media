@@ -265,7 +265,7 @@ const followUser = async (req, res) => {
 
     return res
       .status(200)
-      .json({ message: isAlreadyFollowing ? "Unfollow" : "follow" });
+      .json({ message: isAlreadyFollowing ? "Follow" : "Unfollow" });
   } catch (err) {
     return res.status(500).json(err.message);
   }

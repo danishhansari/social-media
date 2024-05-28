@@ -19,7 +19,6 @@ import Cookies from "js-cookie";
 
 const ProfileSection = () => {
   const { profile } = useParams();
-  console.log(profile);
   const [profileLoading, setProfileLoading] = useState(true);
   const [user, setUser] = useState([]);
   const [userTweetLoading, setUserTweetLoading] = useState(true);
@@ -46,7 +45,7 @@ const ProfileSection = () => {
     axios
       .get(`${import.meta.env.VITE_SERVER}/${username}`)
       .then(({ data: { ...data } }) => {
-        setUser({ ...data });
+        setUser(data);
         fetchUserTweet(data._id);
       })
       .catch((err) => {
@@ -74,6 +73,8 @@ const ProfileSection = () => {
       .then(({ data }) => {
         const isFollowing = user.follower.includes(id);
         console.log(isFollowing);
+        console.log("This is remote user", user.follower.includes(id));
+
         setUser((prev) => {
           return {
             ...prev,
@@ -91,7 +92,6 @@ const ProfileSection = () => {
               : [...prev.following, id],
           };
         });
-
         toast.success(data.message);
       })
       .catch((err) => {
@@ -142,10 +142,16 @@ const ProfileSection = () => {
                   <AiOutlineMessage size={20} />
                 </button>
                 <button
-                  className="bg-black text-white px-4 rounded-full hover:bg-black/70 transition-colors"
+                  className={`${
+                    currentUser?.following?.includes(user._id)
+                      ? "bg-black text-white  hover:bg-black/70"
+                      : "border text-black hover:bg-black/10"
+                  } transition-colors px-4 rounded-full`}
                   onClick={() => followUser(user._id)}
                 >
-                  Follow
+                  {currentUser?.following?.includes(user._id)
+                    ? "Follow"
+                    : "Following"}
                 </button>
               </div>
             )}
