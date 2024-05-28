@@ -1,45 +1,17 @@
 import Sidebar from "../components/Sidebar";
 import HomePageRightSection from "../components/home/HomePageRightSection";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import { useRecoilValue } from "recoil";
 import { currentUserAtom } from "../states/atom";
 import SmallLoader from "../components/loading/SmallLoader";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import Tweet from "../components/Tweet";
 import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { useFetchUserBookmark } from "../hooks/useFetchUserBookmark";
 
 const BookmarkPage = () => {
-  const token = Cookies.get("token");
   const currentUser = useRecoilValue(currentUserAtom);
-  const [bookmarks, setBookmarks] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const getBookmark = () => {
-    axios
-      .get(`${import.meta.env.VITE_SERVER}/user/get-bookmark`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(({ data }) => {
-        console.log(data);
-        setBookmarks(data);
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Error while Bookmark");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-
-  useEffect(() => {
-    getBookmark();
-  }, []);
+  const { bookmarks, error, loading } = useFetchUserBookmark();
 
   return (
     <>
@@ -64,6 +36,12 @@ const BookmarkPage = () => {
           </div>
 
           {loading && <SmallLoader className="w-8 mt-4 mx-auto" />}
+
+          {error && (
+            <p className="text-center text-grey mt-4">
+              Error while fetching user bookmark tweet
+            </p>
+          )}
 
           {!loading && !bookmarks.length && (
             <p className="text-center text-grey mt-4">No Bookmark you have</p>
