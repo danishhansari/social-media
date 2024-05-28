@@ -200,11 +200,15 @@ const ProfileSection = () => {
 
           <div className="flex mt-4 gap-4">
             <p className="text-grey hover:border-b border-grey cursor-pointer">
-              <b className="text-black mr-1">{user?.following?.length}</b>
+              <b className="text-black mr-1">
+                {user.following && user.following.length}
+              </b>
               Following
             </p>
             <p className="text-grey hover:border-b border-grey cursor-pointer">
-              <b className="text-black mr-1">{user?.follower?.length}</b>
+              <b className="text-black mr-1">
+                {user.follower && user.follower.length}
+              </b>
               Followers
             </p>
           </div>
