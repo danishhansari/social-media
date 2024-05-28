@@ -94,4 +94,15 @@ const getBookmark = async (req, res) => {
   return res.status(200).json(userBookmark);
 };
 
-export { postTweet, getTweet, getBookmark, bookmarkTweet };
+const deleteTweet = async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    await Tweet.findByIdAndDelete(id);
+    return res.status(200).json({ message: "Tweet deleted" });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export { postTweet, getTweet, getBookmark, bookmarkTweet, deleteTweet };

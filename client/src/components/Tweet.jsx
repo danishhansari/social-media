@@ -2,7 +2,12 @@ import { Link } from "react-router-dom";
 import { GoHeart } from "react-icons/go";
 import { CiBookmark } from "react-icons/ci";
 import { FaRegComment } from "react-icons/fa6";
+import { GoTrash } from "react-icons/go";
 import { handleBookmark } from "../utils/handleBookmark";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { currentUserAtom, tweetsAtom } from "../states/atom";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const Tweet = ({
   id,
@@ -14,6 +19,30 @@ const Tweet = ({
   like,
   bookmark,
 }) => {
+  const currentUser = useRecoilValue(currentUserAtom);
+  const setTweets = useSetRecoilState(tweetsAtom);
+
+  const deleteTweet = (id) => {
+    console.log(id);
+    axios
+      .post(
+        `${import.meta.env.VITE_SERVER}/user/delete-tweet`,
+        { id },
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser.accessToken}`,
+          },
+        }
+      )
+      .then(() => {
+        setTweets((prev) => prev.filter((prev) => prev._id !== id));
+        toast.success("Tweet deleted");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       <div className="flex items-start w-full gap-2 p-2 border-t border-lightgrey">
@@ -35,7 +64,7 @@ const Tweet = ({
           <div className="flex px-4 py-1 justify-between items-center w-full">
             <p className="flex items-center gap-1 text-grey text-md">
               <FaRegComment className="text-black" />
-              {replies.length}
+              {replies?.length}
             </p>
             <p className="flex items-center gap-1 text-grey text-md">
               <GoHeart className="text-black" />
@@ -48,6 +77,11 @@ const Tweet = ({
               <CiBookmark className="text-black " />
               {bookmark}
             </button>
+            {currentUser.username === username && (
+              <button className="text-black" onClick={() => deleteTweet(id)}>
+                <GoTrash />
+              </button>
+            )}
           </div>
         </div>
       </div>

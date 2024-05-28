@@ -15,6 +15,7 @@ import {
   postTweet,
   bookmarkTweet,
   getBookmark,
+  deleteTweet,
 } from "../controller/tweet.controller.js";
 
 const user = Router();
@@ -38,5 +39,6 @@ user.get("/get-bookmark", verifyJWT, getBookmark);
 
 // Follow
 user.patch("/follow", verifyJWT, followUser);
+user.post("/delete-tweet", verifyJWT, deleteTweet);
 
 export default user;
