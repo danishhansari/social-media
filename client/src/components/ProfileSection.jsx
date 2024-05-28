@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import {
@@ -50,6 +50,7 @@ const ProfileSection = () => {
       })
       .catch((err) => {
         console.log(err);
+        navigate("/i/notfound");
         return toast.error("User not found 404");
       })
       .finally(() => {
@@ -103,6 +104,7 @@ const ProfileSection = () => {
     fetchUser(profile);
   }, [profile]);
 
+  const navigate = useNavigate();
   return (
     <>
       {profileLoading && <SmallLoader />}

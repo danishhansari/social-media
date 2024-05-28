@@ -7,6 +7,7 @@ const AuthPage = lazy(() => import("./pages/AuthPage"));
 const HomePage = lazy(() => import("./pages/HomePage"));
 const BookmarkPage = lazy(() => import("./pages/BookmarkPage"));
 import ProfilePage from "./pages/ProfilePage";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -30,6 +31,10 @@ function App() {
               <Route
                 path="/:profile"
                 element={<PrivateRoute component={<ProfilePage />} />}
+              />
+              <Route
+                path="*"
+                element={<PrivateRoute component={<NotFound />} />}
               />
             </Routes>
           </Suspense>
