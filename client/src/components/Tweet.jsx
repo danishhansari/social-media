@@ -8,6 +8,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { currentUserAtom, tweetsAtom } from "../states/atom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import Cookies from "js-cookie";
 
 const Tweet = ({
   id,
@@ -20,6 +21,7 @@ const Tweet = ({
   bookmark,
 }) => {
   const currentUser = useRecoilValue(currentUserAtom);
+  const token = Cookies.get("token");
   const setTweets = useSetRecoilState(tweetsAtom);
 
   const deleteTweet = (id) => {
@@ -30,7 +32,7 @@ const Tweet = ({
         { id },
         {
           headers: {
-            Authorization: `Bearer ${currentUser.accessToken}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       )
