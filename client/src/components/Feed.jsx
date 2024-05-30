@@ -28,8 +28,6 @@ const Feed = () => {
 
   return (
     <>
-      {loading && <SmallLoader />}
-
       {error && <p>Error while fetching tweets</p>}
 
       {tweets &&
@@ -48,6 +46,8 @@ const Feed = () => {
             />
           );
         })}
+
+      {loading && <SmallLoader />}
     </>
   );
 };
