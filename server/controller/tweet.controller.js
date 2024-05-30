@@ -34,7 +34,7 @@ const postTweet = async (req, res) => {
 
 const getTweet = async (req, res) => {
   const page = req.query.page || 1;
-  const maxLimit = 20;
+  const maxLimit = 10;
   const tweets = await Tweet.find({})
     .populate(
       "user",
