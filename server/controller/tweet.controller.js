@@ -33,12 +33,15 @@ const postTweet = async (req, res) => {
 };
 
 const getTweet = async (req, res) => {
+  const page = req.query.page || 1;
+  const maxLimit = 20;
   const tweets = await Tweet.find({})
     .populate(
       "user",
       "-accessToken -password -location -website -bio -banner -dob -email -follower -following -googleAuth -post -createdAt -updatedAt"
     )
-    .limit(20)
+    .skip((page - 1) * maxLimit)
+    .limit(maxLimit)
     .sort({ createdAt: -1 })
     .lean();
   return res.status(200).json(tweets);

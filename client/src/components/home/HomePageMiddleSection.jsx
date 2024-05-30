@@ -8,6 +8,8 @@ import Tweets from "../Feed";
 const HomePageMiddleSection = () => {
   const currentUser = useRecoilValue(currentUserAtom);
   const setShowSidebar = useSetRecoilState(sidebarToggle);
+  
+
   return (
     <>
       <div className="w-full border-r border-grey">

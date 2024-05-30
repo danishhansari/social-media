@@ -34,6 +34,11 @@ export const sidebarToggle = atom({
 });
 
 export const tweetsAtom = atom({
-  key: "tweet",
+  key: "tweets",
   default: [],
+});
+
+export const pageAtom = atom({
+  key: "page",
+  default: 1,
 });
