@@ -14,7 +14,7 @@ const Feed = () => {
     const handleScroll = () => {
       if (
         window.innerHeight + document.documentElement.scrollTop >=
-        document.documentElement.offsetHeight - 10
+        document.documentElement.offsetHeight - 15
       ) {
         setPage((prev) => prev + 1);
       }
