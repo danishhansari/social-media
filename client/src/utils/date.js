@@ -9,7 +9,6 @@ const timeSincePost = (postedTime) => {
   const days = Math.floor(hours / 24);
 
   if (days > 7) {
-    // Format as full date if more than a week old
     return postedDate.toLocaleDateString();
   } else if (days > 0) {
     return days === 1 ? "1d" : `${days}d`;
