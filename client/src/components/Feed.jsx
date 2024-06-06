@@ -43,6 +43,7 @@ const Feed = () => {
               like={tweet.like}
               bookmark={tweet.bookmark}
               id={tweet._id}
+              createdAt={tweet.createdAt}
             />
           );
         })}

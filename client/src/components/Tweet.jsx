@@ -9,6 +9,7 @@ import { currentUserAtom, tweetsAtom } from "../states/atom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Cookies from "js-cookie";
+import { timeSincePost } from "../utils/date";
 
 const Tweet = ({
   id,
@@ -19,13 +20,13 @@ const Tweet = ({
   replies,
   like,
   bookmark,
+  createdAt,
 }) => {
   const currentUser = useRecoilValue(currentUserAtom);
   const token = Cookies.get("token");
   const setTweets = useSetRecoilState(tweetsAtom);
 
   const deleteTweet = (id) => {
-    console.log(id);
     axios
       .post(
         `${import.meta.env.VITE_SERVER}/user/delete-tweet`,
@@ -45,6 +46,7 @@ const Tweet = ({
       });
   };
 
+  console.log(timeSincePost(createdAt));
   return (
     <>
       <div className="flex items-start w-full gap-2 p-2 border-t border-lightgrey">
@@ -56,11 +58,14 @@ const Tweet = ({
           />
         </Link>
         <div className="flex flex-col w-full">
-          <div>
-            <Link to={`/${username}`} className="font-semibold">
-              {name}
-            </Link>
-            <span className="text-grey ml-1"> @{username}</span>
+          <div className="flex items-center justify-between">
+            <div>
+              <Link to={`/${username}`} className="font-semibold">
+                {name}
+              </Link>
+              <span className="text-grey ml-1"> @{username}</span>
+            </div>
+            <p className="text-grey">{timeSincePost(createdAt)}</p>
           </div>
           <p className="tweet w-full">{tweet}</p>
           <div className="flex px-4 py-1 justify-between items-center w-full">

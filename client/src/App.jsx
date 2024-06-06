@@ -8,6 +8,7 @@ const HomePage = lazy(() => import("./pages/HomePage"));
 const BookmarkPage = lazy(() => import("./pages/BookmarkPage"));
 import ProfilePage from "./pages/ProfilePage";
 import NotFound from "./pages/NotFound";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
   return (
@@ -31,6 +32,10 @@ function App() {
               <Route
                 path="/:profile"
                 element={<PrivateRoute component={<ProfilePage />} />}
+              />
+              <Route
+                path="/edit-profile"
+                element={<PrivateRoute component={<EditProfile />} />}
               />
               <Route
                 path="*"

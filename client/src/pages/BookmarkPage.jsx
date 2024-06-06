@@ -49,7 +49,6 @@ const BookmarkPage = () => {
 
           {bookmarks &&
             bookmarks.map((bookmark) => {
-              console.log(bookmark);
               return (
                 <Tweet
                   key={bookmark._id}
@@ -61,6 +60,7 @@ const BookmarkPage = () => {
                   replies={bookmark.tweet.replies}
                   like={bookmark.tweet.like}
                   bookmark={bookmark.tweet.bookmark}
+                  createdAt={bookmark.tweet.createdAt}
                 />
               );
             })}
