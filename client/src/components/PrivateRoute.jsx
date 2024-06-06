@@ -24,6 +24,7 @@ const PrivateRoute = ({ component }) => {
           },
         })
         .then(({ data: { ...data } }) => {
+          console.log(data);
           setCurrentUser(data);
         })
         .catch((err) => {

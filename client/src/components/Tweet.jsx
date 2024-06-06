@@ -9,7 +9,7 @@ import { currentUserAtom, tweetsAtom } from "../states/atom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Cookies from "js-cookie";
-import { timeSincePost } from "../utils/date";
+import { timeSincePost } from "../common";
 
 const Tweet = ({
   id,
