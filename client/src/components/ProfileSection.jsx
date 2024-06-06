@@ -135,9 +135,12 @@ const ProfileSection = () => {
           />
           <div className="mt-4">
             {currentUser.username === user.username ? (
-              <button className="rounded-full border border-grey px-4 py-1">
+              <Link
+                to={"/edit-profile"}
+                className="rounded-full border border-grey px-4 py-1"
+              >
                 Edit Profile
-              </button>
+              </Link>
             ) : (
               <div className="flex gap-4">
                 <button className="hover:bg-lightgrey p-2 rounded-full">
