@@ -37,4 +37,29 @@ const timeSincePost = (postedTime) => {
   }
 };
 
-export { getMonthAndYear, getFullYear, timeSincePost };
+const getDOB = (dateString) => {
+  const date = new Date(dateString);
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  // Extract month, date, and year from the Date object
+  const month = monthNames[date.getUTCMonth()];
+  const day = date.getUTCDate();
+  const year = date.getUTCFullYear();
+  // Format the date
+  const formattedDate = `${month} ${day}, ${year}`;
+  return formattedDate;
+};
+
+export { getMonthAndYear, getFullYear, timeSincePost, getDOB };

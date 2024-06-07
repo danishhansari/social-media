@@ -4,6 +4,7 @@ import { IoMdClose } from "react-icons/io";
 import { useRecoilValue } from "recoil";
 import { currentUserAtom } from "../states/atom";
 import { TbCameraPlus } from "react-icons/tb";
+import { getDOB } from "../common";
 
 const EditProfile = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const EditProfile = () => {
       <div className="flex max-w-[1300px] mx-auto bg-white text-black">
         <Sidebar />
         <div className="w-full md:w-1/2 border-r border-grey">
-          <div className="py-4 w-full px-4 border-grey border-b flex justify-between items-center">
+          <div className="py-2 w-full px-4 border-grey border-b flex justify-between items-center">
             <div className="flex gap-4 items-center">
               <button
                 className="hover:bg-grey/20 rounded-full p-2"
@@ -52,6 +53,85 @@ const EditProfile = () => {
                 src={currentUser.profile_img}
                 className="rounded-full"
                 alt={`${currentUser.name} profile image`}
+              />
+            </div>
+          </div>
+          <div className="px-4 md:px-6 flex flex-col w-full gap-2 mb-6">
+            <div className="flex flex-col border border-lightgrey p-2 rounded-lg">
+              <label htmlFor="name" className="text-sm mb-1">
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                className="text-darkgrey focus:outline-none"
+                value={currentUser.name}
+              />
+            </div>
+            <div className="flex flex-col border border-lightgrey p-2 rounded-lg">
+              <label htmlFor="username" className="text-sm mb-1">
+                Username
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="rounded-md text-darkgrey focus:outline-none "
+                value={currentUser.username}
+              />
+            </div>
+            <div className="flex flex-col border border-lightgrey p-2 rounded-lg">
+              <label htmlFor="bio" className="text-sm mb-1">
+                Bio
+              </label>
+              <input
+                type="text"
+                id="bio"
+                className="rounded-md text-darkgrey focus:outline-none "
+                value={currentUser.bio}
+              />
+            </div>
+            <div className="flex flex-col border border-lightgrey p-2 rounded-lg">
+              <label htmlFor="location" className="text-sm mb-1">
+                Location
+              </label>
+              <input
+                type="text"
+                id="location"
+                className="rounded-md text-darkgrey focus:outline-none "
+                value={currentUser.location}
+              />
+            </div>
+            <div className="flex flex-col border border-lightgrey p-2 rounded-lg">
+              <label htmlFor="location" className="text-sm mb-1">
+                Website
+              </label>
+              <input
+                type="text"
+                id="location"
+                className="rounded-md text-darkgrey focus:outline-none "
+                value={currentUser.website}
+              />
+            </div>
+            <div className="flex flex-col border border-lightgrey p-2 rounded-lg">
+              <label htmlFor="email" className="text-sm mb-1">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="rounded-md text-darkgrey focus:outline-none "
+                value={currentUser.email}
+              />
+            </div>
+            <div className="flex flex-col border border-lightgrey p-2 rounded-lg">
+              <label htmlFor="dob" className="text-sm mb-1">
+                DOB
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="rounded-md text-darkgrey focus:outline-none "
+                value={getDOB(currentUser.dob)}
               />
             </div>
           </div>
